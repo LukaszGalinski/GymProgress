@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GymProgressApp</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="description_logo">Logo</string>
+    <string name="user_name">Nazwa użytkownika</string>
+    <string name="user_password">Hasło</string>
+    <string name="user_forgotPassword">Nie pamiętasz hasła?</string>
+    <string name="login_btn">Zaloguj</string>
+    <string name="welcome_user">Witaj user1234</string>
+    <string name="statystyki_txtview">Statystyki</string>
+    <string name="userprofile_txtview">Profil</string>
+    <string name="pomiary_txtview">Pomiary</string>
+</resources>
