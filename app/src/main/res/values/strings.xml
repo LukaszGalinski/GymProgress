@@ -7,7 +7,14 @@
     <string name="user_forgotPassword">Nie pamiętasz hasła?</string>
     <string name="login_btn">Zaloguj</string>
     <string name="welcome_user">Witaj user1234</string>
-    <string name="statystyki_txtview">Statystyki</string>
-    <string name="userprofile_txtview">Profil</string>
-    <string name="pomiary_txtview">Pomiary</string>
+    <string name="stats">Statystyki</string>
+    <string name="user_profile">Profil</string>
+    <string name="measurement">Pomiary</string>
+    <string name="muscle_party">Nazwa Partii mięśniowej</string>
+    <string name="exercise_name">Nazwa ćwiczenia</string>
+    <string name="weight">kg</string>
+    <string name="series_number">Serie</string>
+    <string name="reps_number">Reps</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="add_btn">Add</string>
 </resources>

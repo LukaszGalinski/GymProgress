@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EditTextTheme">
+        <item name="android:textColorHint">@color/hintColor</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:textCursorDrawable">@color/whiteColor</item>
+    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -15,8 +20,7 @@
     <style name="calendar" parent="ThemeOverlay.AppCompat.Dialog">
         <item name="android:textColorPrimary">@color/whiteColor</item>
         <item name="android:textColorSecondary">@color/whiteColor</item>
-        <item name="android:windowBackground">@color/colorPrimaryDark</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/darkGray</item>
         <item name="android:textSize">17sp</item>
 
     </style>

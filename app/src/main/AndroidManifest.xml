@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.patronage2020.galinski.gymprogressapp">
+    package="com.example.lukasz.galinski.gymprogressapp">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name="com.example.lukasz.galinski.gymprogressapp.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainMenu"
+            android:name="com.example.lukasz.galinski.gymprogressapp.MainMenu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".WorkoutExercise"
+            android:name="com.example.lukasz.galinski.gymprogressapp.WorkoutExercise"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
