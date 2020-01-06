@@ -23,89 +23,110 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/barki"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
+        android:id="@+id/Barki"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
         android:layout_marginTop="65dp"
+        android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/include" />
-
     <Button
-        android:id="@+id/klata"
+        android:id="@+id/Biceps"
         android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="60dp"
+        android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barki" />
+        app:layout_constraintTop_toBottomOf="@id/Barki" />
 
     <Button
-        android:id="@+id/Plecy"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="100dp"
+        android:id="@+id/Klatka"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:background="#00000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Barki" />
+    <Button
+        android:id="@+id/Triceps"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="90dp"
         android:visibility="gone"
+        android:background="#00000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <Button
+        android:id="@+id/Plecy"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
+        android:visibility="gone"
+        android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:id="@+id/Triceps"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Plecy"
-        />
+
     <Button
         android:id="@+id/Grzbiet"
         android:layout_width="75dp"
         android:layout_height="50dp"
         android:layout_marginEnd="10dp"
         android:visibility="gone"
+        android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Plecy" />
     <Button
-        android:id="@+id/biceps"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
+        android:id="@+id/Pośladki"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="5dp"
+        android:visibility="gone"
+        android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/klata" />
+        app:layout_constraintTop_toBottomOf="@id/Grzbiet" />
+
     <Button
-        android:id="@+id/Przedramie"
+        android:id="@+id/Przedramiona"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/biceps"
+        app:layout_constraintTop_toBottomOf="@id/Biceps"
         />
     <Button
         android:id="@+id/Brzuch"
         android:layout_width="75dp"
         android:layout_height="50dp"
         android:layout_marginEnd="10dp"
+        android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/biceps" />
+        app:layout_constraintTop_toBottomOf="@id/Biceps" />
     <Button
         android:id="@+id/Uda"
         android:layout_width="90dp"
         android:layout_height="100dp"
         android:layout_marginEnd="10dp"
+        android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Brzuch" />
 
     <Button
-        android:id="@+id/łydki"
+        android:id="@+id/Łydki"
         android:layout_width="90dp"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="40dp"
         android:visibility="gone"
+        android:background="#00000000"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -116,9 +137,10 @@
         android:background="#00FFFFFF"
         android:onClick="turnAroundModel"
         android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/Uda"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView" />
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:layout_width="60dp"
@@ -127,9 +149,10 @@
         android:onClick="turnAroundModel"
         android:rotation="180"
         android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/Przedramie"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/addworkout_txtView"
@@ -138,7 +161,7 @@
         android:gravity="center"
         android:text="Wybierz partię ciała na modelu, aby dodać ćwiczenie"
         android:layout_marginTop="10dp"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:textColor="@color/whiteColor"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"

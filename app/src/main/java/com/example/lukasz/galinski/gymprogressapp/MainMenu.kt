@@ -14,7 +14,7 @@ class MainMenu:AppCompatActivity() {
 
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val intent = Intent(applicationContext, WorkoutExercise::class.java)
-            intent.putExtra(currentDate,dayOfMonth.toString()+"_"+month.toString()+"_"+year.toString())
+            intent.putExtra(currentDate,dayOfMonth.toString()+"_"+month+1.toString()+"_"+year.toString())
             startActivity(intent)
         }
     }

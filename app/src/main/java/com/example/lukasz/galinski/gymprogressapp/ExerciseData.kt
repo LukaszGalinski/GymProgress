@@ -5,7 +5,8 @@ data class ExerciseData(
     var exerciseName : String?="",
     var weight : String?="",
     var seriesNumber: String?="",
-    var repsNumber: String?=""
+    var repsNumber: String?="",
+    var exerciseId: Long?=1
 )
 
 
