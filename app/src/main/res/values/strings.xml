@@ -6,7 +6,7 @@
     <string name="user_password">Hasło</string>
     <string name="user_forgotPassword">Nie pamiętasz hasła?</string>
     <string name="login_btn">Zaloguj</string>
-    <string name="welcome_user">Witaj user1234</string>
+    <string name="welcome_user">Witaj %1$s</string>
     <string name="stats">Statystyki</string>
     <string name="user_profile">Profil</string>
     <string name="measurement">Pomiary</string>
@@ -17,4 +17,11 @@
     <string name="reps_number">Reps</string>
     <string name="cancel_btn">Cancel</string>
     <string name="add_btn">Add</string>
+    <string name="fill_gaps">Proszę, uzupełnij wszystkie pola</string>
+    <string name="password_rules">Hasło musi zawierać co najmniej %1$i znaków, cyfrę i wielką literę</string>
+    <string name="password_difference">Hasła różnią się </string>
+    <string name="login_rules">Login musi posiadać przynajmniej %1$i znaków</string>
+    <string name="email_error">Email jest nieprawidłowy</string>
+    <string name="user_added">Użytkownik został dodany</string>
+    <string name="user_add_error">Błąd przy dodawaniu użytkownika</string>
 </resources>

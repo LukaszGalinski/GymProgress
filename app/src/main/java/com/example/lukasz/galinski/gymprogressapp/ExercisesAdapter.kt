@@ -2,18 +2,13 @@ package com.example.lukasz.galinski.gymprogressapp
 
 import android.content.Context
 import android.graphics.Typeface
-import android.util.ArrayMap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatTextView
 
-
-class ExercisesAdapter(val context: Context, val listOfHeaderData: List<String>, val listOfChildData: HashMap<String,List<ExerciseData?>>): BaseExpandableListAdapter() {
-    var i=0
+class ExercisesAdapter(private val context: Context, private val listOfHeaderData: List<String>, private val listOfChildData: HashMap<String,List<ExerciseData?>>): BaseExpandableListAdapter() {
     override fun getGroup(position: Int): Any {
         return listOfHeaderData[position]
     }
@@ -29,7 +24,7 @@ class ExercisesAdapter(val context: Context, val listOfHeaderData: List<String>,
     override fun getGroupView(groupPosition: Int, isExpanded: Boolean, convertView: View?, parent: ViewGroup?): View {
        val headerTitle = getGroup(groupPosition) as String
         val view: View = LayoutInflater.from(context).inflate(R.layout.group_layout,parent,false)
-        val listHeaderText = view.findViewById<TextView>(R.id.group_text) as TextView
+        val listHeaderText = view.findViewById(R.id.group_text) as TextView
 
         listHeaderText.setTypeface(null,Typeface.BOLD)
         listHeaderText.text = headerTitle
@@ -46,17 +41,16 @@ class ExercisesAdapter(val context: Context, val listOfHeaderData: List<String>,
 
     override fun getGroupId(groupPosition: Int): Long {
         return groupPosition.toLong()
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
 
         val childText = getChild(groupPosition, childPosition)
         val view:View = LayoutInflater.from(context).inflate(R.layout.list_item,parent,false)
-        val itemName = view.findViewById<TextView>(R.id.exe_name) as TextView
-        val itemWeight = view.findViewById<TextView>(R.id.weigth) as TextView
-        val itemReps= view.findViewById<TextView>(R.id.repsik) as TextView
-        val itemSeries= view.findViewById<TextView>(R.id.series) as TextView
+        val itemName = view.findViewById(R.id.exe_name) as TextView
+        val itemWeight = view.findViewById(R.id.weigth) as TextView
+        val itemReps= view.findViewById(R.id.repsik) as TextView
+        val itemSeries= view.findViewById(R.id.series) as TextView
 
         itemName.text = childText?.exerciseName
         itemWeight.text = childText?.weight
@@ -64,7 +58,6 @@ class ExercisesAdapter(val context: Context, val listOfHeaderData: List<String>,
         itemSeries.text = childText?.seriesNumber
 
         return view
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
@@ -73,7 +66,6 @@ class ExercisesAdapter(val context: Context, val listOfHeaderData: List<String>,
 
     override fun getGroupCount(): Int {
         return listOfHeaderData.size
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

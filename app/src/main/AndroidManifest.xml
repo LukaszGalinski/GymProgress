@@ -25,6 +25,7 @@
         <activity
             android:name="com.example.lukasz.galinski.gymprogressapp.WorkoutExercise"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".CreateAccount" />
     </application>
 
 </manifest>
