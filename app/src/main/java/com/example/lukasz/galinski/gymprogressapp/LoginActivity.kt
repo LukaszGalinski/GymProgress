@@ -1,16 +1,14 @@
 package com.example.lukasz.galinski.gymprogressapp
 
-import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
-import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.login_screen.*
 
 private const val USERNAME_LABEL = "username"
 private lateinit var square: ImageView
@@ -19,13 +17,14 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.login_screen)
         firebaseAuth = FirebaseAuth.getInstance()
         square = findViewById(R.id.logo_imgView)
         userLoggedCheck()
         rotate()
         fadeIn()
         login_btn.setOnClickListener{
+            /*
             val userName = username_editTxt.text.toString()
             val userPassword = password_editTxt.text.toString()
             if (userName.isNotBlank() && userPassword.isNotBlank()){
@@ -34,6 +33,9 @@ class LoginActivity : AppCompatActivity() {
             else{
                 Toast.makeText(baseContext, resources.getText(R.string.fill_gaps), Toast.LENGTH_SHORT).show()
             }
+            */
+            finish()
+            startActivity(Intent(this, MainMenu::class.java))
         }
         createAccount.setOnClickListener {
             finish()
@@ -81,8 +83,12 @@ class LoginActivity : AppCompatActivity() {
         createAccount.alpha = 0f
         username_editTxt.animate().alpha(1f).setStartDelay(4500).setDuration(1500).setListener(null)
         password_editTxt.animate().alpha(1f).setStartDelay(4500).setDuration(1500).setListener(null)
-
         login_btn.animate().alpha(1f).setStartDelay(4500).setDuration(1500).setListener(null)
         createAccount.animate().alpha(1f).setStartDelay(4500).setDuration(1500).setListener(null)
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        println("Nacisnieto")
+        return super.onTouchEvent(event)
     }
 }

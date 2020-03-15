@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/background_layout" />
 
     <ImageView
         android:id="@+id/logo_imgView"
-        android:src="@drawable/logoapp"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="100dp"

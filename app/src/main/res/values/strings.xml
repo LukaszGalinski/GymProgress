@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GymProgressApp</string>
+    <string name="app_name">Gym Progress</string>
     <string name="action_settings">Ustawienia</string>
     <string name="description_logo">Logo</string>
     <string name="user_name">Nazwa użytkownika</string>
@@ -24,4 +24,7 @@
     <string name="email_error">Email jest nieprawidłowy</string>
     <string name="user_added">Użytkownik został dodany</string>
     <string name="user_add_error">Błąd przy dodawaniu użytkownika</string>
+
+    <string name="main_menu_subtitle">MAKE YOURSELF BETTER</string>
+    <string name="main_menu_confirm_button">confirm</string>
 </resources>

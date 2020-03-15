@@ -1,27 +1,46 @@
 package com.example.lukasz.galinski.gymprogressapp
 
-import android.content.Intent
+import android.media.Image
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.mainmenu.*
+import kotlinx.android.synthetic.main.main_menu_layout.*
 
-private const val CURRENT_DATE = "currentDate"
-private const val USERNAME_LABEL = "username"
+lateinit var squaresArray : Array<ImageButton>
 
 class MainMenu:AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.mainmenu)
-        val userName = intent.getStringExtra(USERNAME_LABEL)
-        println(userName)
-        welcome_txtView.text = getString(R.string.welcome_user, userName)
+        setContentView(R.layout.main_menu_layout)
+        squaresArray = arrayOf(exercise_square, records, charts, square_measure )
 
-        calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val intent = Intent(applicationContext, WorkoutExercise::class.java)
-            intent.putExtra(CURRENT_DATE,dayOfMonth.toString()+"_"+month+1.toString()+"_"+year.toString())
-            startActivity(intent)
+    }
+
+    fun categoryPick(v: View){
+        square_name.animate().alpha(1f).duration = 1000L
+        confirm.animate().alpha(1f).duration = 1000L
+        resetAnimation(squaresArray)
+        when (v.id){
+            R.id.exercise_square -> {
+                exercise_square.animate().translationY(-90f).rotation(-90f).alpha(1f).duration = 1000L
+            }
+            R.id.records -> {
+                records.animate().translationX(90f).rotation(-90f).alpha(1f).duration = 1000L
+            }
+            R.id.charts -> {
+                charts.animate().translationY(90f).rotation(-90f).alpha(1f).duration = 1000L
+            }
+            R.id.square_measure -> {
+                square_measure.animate().translationX(-90f).rotation(-90f).alpha(1f).duration = 1000L
+            }
+        }
+    }
+
+    private fun resetAnimation(array: Array<ImageButton>){
+        for (i in array.indices){
+            array[i].animate().translationY(45f).rotation(45f).alpha(0.8f).duration = 1000L
         }
     }
 }

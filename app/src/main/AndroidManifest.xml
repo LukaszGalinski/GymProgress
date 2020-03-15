@@ -26,6 +26,7 @@
             android:name="com.example.lukasz.galinski.gymprogressapp.WorkoutExercise"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".CreateAccount" />
+        <activity android:name=".CalendarActivity" />
     </application>
 
 </manifest>
