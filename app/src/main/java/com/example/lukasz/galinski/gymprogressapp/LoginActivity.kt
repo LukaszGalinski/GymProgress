@@ -1,9 +1,10 @@
 package com.example.lukasz.galinski.gymprogressapp
 
+import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -11,7 +12,17 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.login_screen.*
 
 private const val USERNAME_LABEL = "username"
+private const val ROTATION_DURATION = 4000L
+private const val ROTATION = 1080f
+private const val SQUARE_SCALE = 1.5f
+private const val AlPHA_DELAY = 4500L
+private const val START_ALPHA = 0f
+private const val END_ALPHA = 1f
+private const val ALPHA_DURATION = 1500L
+private const val ANIMATION_ALPHA = "alpha"
 private lateinit var square: ImageView
+private val animationsArray: MutableList<ObjectAnimator> = ArrayList()
+private lateinit var elementsArray: Array<Any>
 class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -20,10 +31,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.login_screen)
         firebaseAuth = FirebaseAuth.getInstance()
         square = findViewById(R.id.logo_imgView)
+        elementsArray =
+            arrayOf(app_name, username_editTxt, password_editTxt, createAccount, login_btn)
         userLoggedCheck()
         rotate()
-        fadeIn()
-        login_btn.setOnClickListener{
+        fadeIn(elementsArray)
+        login_btn.setOnClickListener {
             /*
             val userName = username_editTxt.text.toString()
             val userPassword = password_editTxt.text.toString()
@@ -43,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun login(firebaseAuth: FirebaseAuth, userEmail : String, userPassword: String) {
+    private fun login(firebaseAuth: FirebaseAuth, userEmail: String, userPassword: String) {
         firebaseAuth.signInWithEmailAndPassword(userEmail, userPassword)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -55,40 +68,39 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun updateUI(user: FirebaseUser?){
-        if (user != null){
+    private fun updateUI(user: FirebaseUser?) {
+        if (user != null) {
             val intent = Intent(applicationContext, MainMenu::class.java)
             intent.putExtra(USERNAME_LABEL, user.email.toString())
             startActivity(intent)
         }
     }
 
-    private fun userLoggedCheck(){
+    private fun userLoggedCheck() {
         val user = firebaseAuth.currentUser
         updateUI(user)
     }
 
-    private fun rotate(){
-        square.alpha = 0f
-        square.visibility = View.VISIBLE
-        square.scaleX = 0.1f
-        square.scaleY = 0.1f
-        square.animate().alpha(1f).rotation(1080f).scaleX(1.5f).scaleY(1.5f).setDuration(4000).setListener(null)
+    private fun rotate() {
+        square.animate().alpha(END_ALPHA).rotation(ROTATION).scaleX(SQUARE_SCALE).scaleY(
+            SQUARE_SCALE).duration = ROTATION_DURATION
     }
 
-    private fun fadeIn(){
-        username_editTxt.alpha = 0f
-        password_editTxt.alpha = 0f
-        login_btn.alpha = 0f
-        createAccount.alpha = 0f
-        username_editTxt.animate().alpha(1f).setStartDelay(4500).setDuration(1500).setListener(null)
-        password_editTxt.animate().alpha(1f).setStartDelay(4500).setDuration(1500).setListener(null)
-        login_btn.animate().alpha(1f).setStartDelay(4500).setDuration(1500).setListener(null)
-        createAccount.animate().alpha(1f).setStartDelay(4500).setDuration(1500).setListener(null)
+    @SuppressLint("ObjectAnimatorBinding")
+    private fun fadeIn(elementsArray: Array<Any>) {
+        for (i in elementsArray.indices) {
+            val anim = ObjectAnimator.ofFloat(elementsArray[i], ANIMATION_ALPHA, START_ALPHA, END_ALPHA)
+            anim.duration = ALPHA_DURATION
+            anim.startDelay = AlPHA_DELAY
+            anim.start()
+            animationsArray.add(anim)
+        }
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        println("Nacisnieto")
+        for (i in animationsArray.indices) {
+            animationsArray[i].end()
+        }
         return super.onTouchEvent(event)
     }
 }

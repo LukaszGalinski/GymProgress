@@ -1,46 +1,59 @@
 package com.example.lukasz.galinski.gymprogressapp
 
-import android.media.Image
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.main_menu_layout.*
 
-lateinit var squaresArray : Array<ImageButton>
-
+private const val SQUARES_DURATION = 1000L
+private const val SQUARES_ROTATION = 135f
+private const val SQUARES_TRANSLATION = 90f
+private const val SQUARES_ALPHA = 1f
+private const val SQUARES_BASIC_ALPHA = 0.7f
+private const val BASIC_ROTATION = 45f
+private const val RESET_TRANSITION = 0f
+private lateinit var squaresArray: Array<ImageButton>
 class MainMenu:AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_menu_layout)
-        squaresArray = arrayOf(exercise_square, records, charts, square_measure )
-
+        squaresArray = arrayOf(exercise_square, records, charts, square_measure)
     }
 
-    fun categoryPick(v: View){
-        square_name.animate().alpha(1f).duration = 1000L
-        confirm.animate().alpha(1f).duration = 1000L
+    fun categoryPick(v: View) {
+        square_name.animate().alpha(SQUARES_ALPHA).duration = SQUARES_DURATION
+        confirm.animate().alpha(SQUARES_ALPHA).duration = SQUARES_DURATION
         resetAnimation(squaresArray)
-        when (v.id){
+        val resourceName = v.resources.getResourceEntryName(v.id)
+        when (v.id) {
             R.id.exercise_square -> {
-                exercise_square.animate().translationY(-90f).rotation(-90f).alpha(1f).duration = 1000L
+                exercise_square.animate().translationY(-SQUARES_TRANSLATION)
+                    .rotation(-SQUARES_ROTATION).alpha(SQUARES_ALPHA).duration = SQUARES_DURATION
             }
             R.id.records -> {
-                records.animate().translationX(90f).rotation(-90f).alpha(1f).duration = 1000L
+                records.animate().translationX(SQUARES_TRANSLATION).rotation(-SQUARES_ROTATION)
+                    .alpha(SQUARES_ALPHA).duration = SQUARES_DURATION
             }
             R.id.charts -> {
-                charts.animate().translationY(90f).rotation(-90f).alpha(1f).duration = 1000L
+                charts.animate().translationY(SQUARES_TRANSLATION).rotation(-SQUARES_ROTATION)
+                    .alpha(SQUARES_ALPHA).duration = SQUARES_DURATION
             }
             R.id.square_measure -> {
-                square_measure.animate().translationX(-90f).rotation(-90f).alpha(1f).duration = 1000L
+                square_measure.animate().translationX(-SQUARES_TRANSLATION)
+                    .rotation(-SQUARES_ROTATION).alpha(
+                    SQUARES_ALPHA
+                ).duration = SQUARES_DURATION
             }
         }
+        square_name.text = resourceName
     }
 
-    private fun resetAnimation(array: Array<ImageButton>){
-        for (i in array.indices){
-            array[i].animate().translationY(45f).rotation(45f).alpha(0.8f).duration = 1000L
+    private fun resetAnimation(squaresArray: Array<ImageButton>) {
+        for (i in squaresArray.indices) {
+            squaresArray[i].animate().translationY(RESET_TRANSITION).rotation(BASIC_ROTATION).alpha(
+                SQUARES_BASIC_ALPHA
+            ).duration = SQUARES_DURATION
         }
     }
 }
