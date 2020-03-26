@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/background_layout"
-        tools:layout_editor_absoluteX="-29dp"
-        tools:layout_editor_absoluteY="0dp" />
+    <include layout="@layout/background_layout" />
 
     <CalendarView
         android:id="@+id/calendar"
@@ -33,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@id/calendar" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/water_cup"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
@@ -47,21 +42,20 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=" X L Today"
         android:textColor="@color/whiteColor"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+        app:layout_constraintStart_toEndOf="@id/water_cup"
+        app:layout_constraintTop_toTopOf="@id/water_cup" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
         android:gravity="center"
+        android:textColor="@color/whiteColor"
         android:inputType="number"
-        android:text="0"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -69,7 +63,7 @@
         android:id="@+id/imageButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:background="@drawable/ic_add_circle_black_24dp"
         app:layout_constraintBottom_toBottomOf="@+id/editText"
         app:layout_constraintStart_toEndOf="@+id/editText"
@@ -79,7 +73,7 @@
         android:id="@+id/imageButton2"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:background="@drawable/ic_remove_circle_black_24dp"
         app:layout_constraintBottom_toBottomOf="@+id/editText"
         app:layout_constraintStart_toEndOf="@+id/imageButton"
@@ -99,42 +93,42 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/vegetable_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/carro"
-        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+        app:layout_constraintEnd_toEndOf="@id/water_cup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/vegetable_checkbox"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:buttonTint="@color/whiteColor"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="@+id/imageView7" />
+        app:layout_constraintStart_toEndOf="@id/vegetable_icon"
+        app:layout_constraintTop_toTopOf="@id/vegetable_icon" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/apple_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/aplle"
-        app:layout_constraintEnd_toStartOf="@+id/imageView9"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
+        app:layout_constraintEnd_toStartOf="@id/practice_icon"
+        app:layout_constraintStart_toEndOf="@id/vegetable_icon"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/apple_checkbox"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:buttonTint="@color/whiteColor"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/imageView8" />
+        app:layout_constraintStart_toEndOf="@id/apple_icon"
+        app:layout_constraintTop_toTopOf="@id/apple_icon" />
 
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/practice_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/ic_fitness_center_black_24dp"
@@ -143,10 +137,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <CheckBox
+        android:id="@+id/practice_checkbox"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:buttonTint="@color/whiteColor"
-        app:layout_constraintStart_toEndOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView8" />
+        app:layout_constraintStart_toEndOf="@id/practice_icon"
+        app:layout_constraintTop_toTopOf="@id/apple_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

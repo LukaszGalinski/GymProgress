@@ -1,102 +1,97 @@
 package com.example.lukasz.galinski.gymprogressapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.exercises_add.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import devs.mulham.horizontalcalendar.HorizontalCalendar
+import devs.mulham.horizontalcalendar.HorizontalCalendarListener
+import kotlinx.android.synthetic.main.exercise_row.view.*
+import kotlinx.android.synthetic.main.exercises_add_layout.*
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 private val groupNames = listOf("Barki","Klatka","Plecy","Triceps","Biceps","Grzbiet","Przedramiona","Brzuch","Pośladki","Uda","Łydki")
-private const val LISTVIEW_HEIGHT = 250
-private const val CURRENT_DATE = "currentDate"
 private const val FIREBASE_DATABASE_PATH = "workout/username/"
-private const val LOG = "Log"
-private const val LOG_CANCELINFO = "Cancelled"
-
+private const val CALENDAR_START_END_DAY = 1
+var elementsCounter: Int = 0
 class WorkoutExercise:AppCompatActivity() {
     private var isForward = true
     private var datePicked: String? = ""
-    private var lastIndexExerciseId: Long? = 0
     private var bodyPartButtons: ArrayList<Button> = arrayListOf()
     val listRecords : MutableList<ExerciseData?> = ArrayList()
 
     private val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        datePicked = intent.getStringExtra(CURRENT_DATE)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.exercises_add)
+        setContentView(R.layout.exercises_add_layout)
         bodyPartButtons = arrayListOf(Barki, Klatka, Plecy, Triceps, Biceps, Grzbiet, Przedramiona, Brzuch, Pośladki, Uda, Łydki)
 
         for (i in bodyPartButtons) {
             i.setOnClickListener(openAlertDialogWithPickedPart)
         }
-        expandableListView.setOnChildClickListener { parent, view, groupPosition, childPosition, _ ->
-            val chosenChildExerciseData:ExerciseData = parent.expandableListAdapter.getChild(groupPosition,childPosition) as ExerciseData
-            val popupMenu = PopupMenu(applicationContext,view)
-            popupMenu.menuInflater.inflate(R.menu.menu_main, popupMenu.menu)
+        updateSpinner()
+        createHorizontalCalendar()
+        loadExercises()
 
-            popupMenu.setOnMenuItemClickListener { item: MenuItem? ->
-                when (item?.itemId){
-                    R.id.edit_thing ->
-                        editElement(chosenChildExerciseData)
-                    R.id.delete_thing ->
-                        deleteElement(chosenChildExerciseData)
-                }
-                true
-            }
-            popupMenu.show()
-            true
+        listview.onItemClickListener = AdapterView.OnItemClickListener { _, view, _, _ ->
+            val number = view.series_number.text
+            Toast.makeText(this, "you pressed item with id" + number, Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        val ref = firebaseDatabase.getReference(FIREBASE_DATABASE_PATH + datePicked)
-        val listChild = HashMap<String,List<ExerciseData?>>()
-        ref.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(p0: DataSnapshot) {
-                listRecords.clear()
-                for (i in p0.children) {
-                    val place = i.getValue(ExerciseData::class.java)
-                    listRecords.add(place)
-                }
-                for (partElement in groupNames.indices) {
-                    listChild[groupNames[partElement]] = listRecords.filter { it?.musclePartName == groupNames[partElement]}
-                }
-                expandableListView.setAdapter(ExercisesAdapter(applicationContext, groupNames, listChild))
-                if (listRecords.isNotEmpty()) lastIndexExerciseId = listRecords[listRecords.lastIndex]?.exerciseId
-            }
+private fun loadExercises(){
+    val ref = firebaseDatabase.reference.child(FIREBASE_DATABASE_PATH)
+    ref.addValueEventListener(object: ValueEventListener{
+        override fun onDataChange(p0: DataSnapshot) {
+            listRecords.clear()
+            elementsCounter = p0.childrenCount.toInt()
+            for (i in p0.children) {
 
-            override fun onCancelled(p0: DatabaseError) {
-                Log.d(LOG, LOG_CANCELINFO)
+                val exercise: ExerciseData? = i.getValue(ExerciseData::class.java)
+                if (exercise?.musclePartName == spinner.selectedItem.toString()) {
+                    listRecords.add(exercise)
+                }
+            }
+            val arrayAdapter = MyAdapter(applicationContext, listRecords)
+            listview.adapter = arrayAdapter
+        }
+        override fun onCancelled(p0: DatabaseError) {
+        }
+    })
+}
+
+    private fun createHorizontalCalendar(){
+        val endDate: Calendar = Calendar.getInstance()
+        endDate.add(Calendar.MONTH, CALENDAR_START_END_DAY)
+        val startDate: Calendar = Calendar.getInstance()
+        startDate.add(Calendar.MONTH, -CALENDAR_START_END_DAY)
+
+        val horizontalCalendar = HorizontalCalendar
+            .Builder(this, R.id.calendarView)
+            .startDate(startDate.time)
+            .endDate(endDate.time)
+            .build()
+
+        horizontalCalendar.calendarListener = (object: HorizontalCalendarListener() {
+            override fun onDateSelected(date: Date?, position: Int) {
+                loadExercises()
             }
         })
-        expandableListView.setGroupIndicator(resources.getDrawable(R.drawable.indicator_cfg))
-        expandableListView.setOnGroupClickListener{ parent: ExpandableListView, _: View, i: Int, _: Long ->
-            val adapter : ExpandableListAdapter = parent.expandableListAdapter
-            val recordsNumber = adapter.getChildrenCount(i)
-            val height = expandableListView.height
-            if (expandableListView.isGroupExpanded(i)){
-                expandableListView.collapseGroup(i)
-                expandableListView.layoutParams.height = height - (recordsNumber*LISTVIEW_HEIGHT)
-            }
-            else{
-                expandableListView.expandGroup(i)
-                expandableListView.layoutParams.height = height + (recordsNumber*LISTVIEW_HEIGHT)
-            }
-            return@setOnGroupClickListener true
-
-        }
     }
+
     private val openAlertDialogWithPickedPart = View.OnClickListener { v: View? ->
-        val databaseReference = firebaseDatabase.getReference(FIREBASE_DATABASE_PATH + datePicked).child(lastIndexExerciseId?.inc().toString())
+        val databaseReference = firebaseDatabase.getReference(FIREBASE_DATABASE_PATH + datePicked).child(
+            elementsCounter.inc().toString())
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.exercise_dialog, null)
         val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
         val entryName = v?.resources?.getResourceEntryName(v.id)
@@ -113,11 +108,12 @@ class WorkoutExercise:AppCompatActivity() {
                 mDialogView.findViewById<EditText>(R.id.weight_editTxt).text.toString(),
                 mDialogView.findViewById<EditText>(R.id.series_editTxt).text.toString(),
                 mDialogView.findViewById<EditText>(R.id.reps_editTxt).text.toString(),
-                lastIndexExerciseId?.inc()
+                elementsCounter.inc().toLong()
             )
             databaseReference.setValue(exercise)
             alert.dismiss()
         }
+        loadExercises()
     }
 
     private fun changeVisibilityOfElements(tab: ArrayList<Button>) {
@@ -178,5 +174,18 @@ class WorkoutExercise:AppCompatActivity() {
     private fun deleteElement(data: ExerciseData){
         val ref = firebaseDatabase.getReference(FIREBASE_DATABASE_PATH + "$datePicked/${data.exerciseId}")
         ref.removeValue()
+    }
+
+    private fun updateSpinner(){
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, groupNames)
+        spinner.adapter = arrayAdapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                loadExercises()
+            }
+        }
     }
 }

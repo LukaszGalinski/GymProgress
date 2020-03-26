@@ -1,12 +1,13 @@
 package com.example.lukasz.galinski.gymprogressapp
 
 data class ExerciseData(
-    var musclePartName: String?,
-    var exerciseName : String?,
-    var weight : String?,
-    var seriesNumber: String?,
-    var repsNumber: String?,
-    var exerciseId: Long?
+    var musclePartName: String? = "s",
+    var exerciseName : String? = "s",
+    var weight : String? = "s",
+    var seriesNumber: String? = "s",
+    var repsNumber: String? = "s",
+    var exerciseId: Long?= 0
 )
+
 
 

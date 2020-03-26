@@ -27,4 +27,11 @@
 
     <string name="main_menu_subtitle">MAKE YOURSELF BETTER</string>
     <string name="main_menu_confirm_button">confirm</string>
+    <string name="water_liters">%2$.2f. L today</string>
+
+    <string-array name="exercises_names">
+        <item>rozpiętki</item>
+        <item>brzuszki</item>
+        <item>falling fole</item>
+    </string-array>
 </resources>

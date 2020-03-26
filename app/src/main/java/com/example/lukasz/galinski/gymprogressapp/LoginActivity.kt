@@ -9,7 +9,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.login_screen.*
+import kotlinx.android.synthetic.main.login_screen_layout.*
 
 private const val USERNAME_LABEL = "username"
 private const val ROTATION_DURATION = 4000L
@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_screen)
+        setContentView(R.layout.login_screen_layout)
         firebaseAuth = FirebaseAuth.getInstance()
         square = findViewById(R.id.logo_imgView)
         elementsArray =
@@ -83,13 +83,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun rotate() {
         square.animate().alpha(END_ALPHA).rotation(ROTATION).scaleX(SQUARE_SCALE).scaleY(
-            SQUARE_SCALE).duration = ROTATION_DURATION
+            SQUARE_SCALE
+        ).duration = ROTATION_DURATION
     }
 
     @SuppressLint("ObjectAnimatorBinding")
     private fun fadeIn(elementsArray: Array<Any>) {
         for (i in elementsArray.indices) {
-            val anim = ObjectAnimator.ofFloat(elementsArray[i], ANIMATION_ALPHA, START_ALPHA, END_ALPHA)
+            val anim =
+                ObjectAnimator.ofFloat(elementsArray[i], ANIMATION_ALPHA, START_ALPHA, END_ALPHA)
             anim.duration = ALPHA_DURATION
             anim.startDelay = AlPHA_DELAY
             anim.start()
@@ -98,9 +100,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        endAnimations()
+        return super.onTouchEvent(event)
+    }
+
+    private fun endAnimations() {
         for (i in animationsArray.indices) {
             animationsArray[i].end()
         }
-        return super.onTouchEvent(event)
     }
 }

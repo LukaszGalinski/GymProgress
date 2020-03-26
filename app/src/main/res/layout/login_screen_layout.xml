@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="zarejestruj sie"
-        android:alpha="0"
+        android:alpha="0.1"
         android:layout_marginTop="10dp"
         android:textColor="@color/whiteColor"
         app:layout_constraintEnd_toEndOf="@+id/password_editTxt"

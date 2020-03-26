@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.create_account.*
+import kotlinx.android.synthetic.main.create_account_layout.*
 import java.util.regex.Pattern
 
 private const val LOGIN_LENGTH = 7
@@ -19,7 +19,7 @@ class CreateAccount: AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.create_account)
+        setContentView(R.layout.create_account_layout)
         firebaseAuth = FirebaseAuth.getInstance()
 
         register_btn.setOnClickListener {
