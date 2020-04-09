@@ -83,8 +83,8 @@
 
     <Button
         android:id="@+id/login_btn"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
         android:layout_marginTop="25dp"
         android:background="@drawable/roundedbtn"
         android:text="@string/login_btn"
@@ -92,7 +92,6 @@
         android:textStyle="bold"
         android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/createAccount" />
 

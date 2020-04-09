@@ -1,4 +1,4 @@
-package com.example.lukasz.galinski.gymprogressapp
+package com.example.lukasz.galinski.gymprogressapp.loginfeatures
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.lukasz.galinski.gymprogressapp.R
+import com.example.lukasz.galinski.gymprogressapp.mainmenu.MainMenu
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.login_screen_layout.*
@@ -30,7 +32,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_screen_layout)
         firebaseAuth = FirebaseAuth.getInstance()
-        square = findViewById(R.id.logo_imgView)
+        square = findViewById(
+            R.id.logo_imgView
+        )
         elementsArray =
             arrayOf(app_name, username_editTxt, password_editTxt, createAccount, login_btn)
         userLoggedCheck()
@@ -82,18 +86,29 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun rotate() {
-        square.animate().alpha(END_ALPHA).rotation(ROTATION).scaleX(SQUARE_SCALE).scaleY(
+        square.animate().alpha(
+            END_ALPHA
+        ).rotation(ROTATION).scaleX(
             SQUARE_SCALE
-        ).duration = ROTATION_DURATION
+        ).scaleY(
+            SQUARE_SCALE
+        ).duration =
+            ROTATION_DURATION
     }
 
     @SuppressLint("ObjectAnimatorBinding")
     private fun fadeIn(elementsArray: Array<Any>) {
         for (i in elementsArray.indices) {
             val anim =
-                ObjectAnimator.ofFloat(elementsArray[i], ANIMATION_ALPHA, START_ALPHA, END_ALPHA)
-            anim.duration = ALPHA_DURATION
-            anim.startDelay = AlPHA_DELAY
+                ObjectAnimator.ofFloat(elementsArray[i],
+                    ANIMATION_ALPHA,
+                    START_ALPHA,
+                    END_ALPHA
+                )
+            anim.duration =
+                ALPHA_DURATION
+            anim.startDelay =
+                AlPHA_DELAY
             anim.start()
             animationsArray.add(anim)
         }

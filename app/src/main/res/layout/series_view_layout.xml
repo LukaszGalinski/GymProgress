@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/background_layout" />
+
+    <TextView
+        android:id="@+id/exercise_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exercise_name"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:padding="@dimen/padding_labels"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_label"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        android:padding="@dimen/padding_labels"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exercise_name"/>
+
+    <TextView
+        android:id="@+id/partname_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/muscle_part_label"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        android:padding="@dimen/padding_labels"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date_label"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_size"
+        android:layout_marginTop="@dimen/calendar_margin"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/partname_label" />
+
+    <ListView
+        android:id="@+id/series_listview"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="@dimen/calendar_margin"
+        app:layout_constraintTop_toBottomOf="@id/view"
+         />
+
+    <Button
+        android:id="@+id/daily_save"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:background="@drawable/roundedbtn"
+        android:text="@string/daily_save"
+        android:textColor="@color/hintColor"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+</androidx.constraintlayout.widget.ConstraintLayout>

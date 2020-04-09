@@ -1,4 +1,4 @@
-package com.example.lukasz.galinski.gymprogressapp
+package com.example.lukasz.galinski.gymprogressapp.dataclasses
 
 data class DailyTasksData(
     var water: Float = 0f,

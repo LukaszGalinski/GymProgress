@@ -27,12 +27,17 @@
 
     <string name="main_menu_subtitle">MAKE YOURSELF BETTER</string>
     <string name="main_menu_confirm_button">confirm</string>
-    <string name="water_liters">%.2fL </string>
+
     <string name="water_zero_information">%.2fL </string>
+    <string name="daily_save">SAVE</string>
 
     <string-array name="exercises_names">
         <item>rozpiętki</item>
         <item>brzuszki</item>
         <item>falling fole</item>
     </string-array>
+
+    //series_layout
+    <string name="date_label">Date : 25.03.52</string>
+    <string name="muscle_part_label">Muscle Part : Triceps</string>
 </resources>

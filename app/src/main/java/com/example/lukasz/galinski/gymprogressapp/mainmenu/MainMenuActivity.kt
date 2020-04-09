@@ -1,10 +1,13 @@
-package com.example.lukasz.galinski.gymprogressapp
+package com.example.lukasz.galinski.gymprogressapp.mainmenu
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import com.example.lukasz.galinski.gymprogressapp.R
+import com.example.lukasz.galinski.gymprogressapp.mainmenu.workout.WorkoutExercise
+import com.example.lukasz.galinski.gymprogressapp.mainmenu.daily.DailyActivity
 import kotlinx.android.synthetic.main.main_menu_layout.*
 
 private const val SQUARES_DURATION = 1000L
@@ -28,31 +31,39 @@ class MainMenu:AppCompatActivity() {
     }
 
     fun categoryPick(v: View) {
-        square_name.animate().alpha(SQUARES_ALPHA).duration = SQUARES_DURATION
+        square_name.animate().alpha(SQUARES_ALPHA).duration =
+            SQUARES_DURATION
         confirm.visibility = View.VISIBLE
-        confirm.animate().alpha(SQUARES_ALPHA).duration = SQUARES_DURATION
+        confirm.animate().alpha(SQUARES_ALPHA).duration =
+            SQUARES_DURATION
         resetAnimation(squaresArray)
         val resourceName = v.resources.getResourceEntryName(v.id)
         when (v.id) {
             R.id.Exercises -> {
                 Exercises.animate().translationY(-SQUARES_TRANSLATION)
-                    .rotation(-SQUARES_ROTATION).alpha(SQUARES_ALPHA).duration = SQUARES_DURATION
+                    .rotation(-SQUARES_ROTATION).alpha(
+                        SQUARES_ALPHA
+                    ).duration =
+                    SQUARES_DURATION
                 intense = Intent(this, WorkoutExercise::class.java)
             }
             R.id.Records -> {
                 Records.animate().translationX(SQUARES_TRANSLATION).rotation(-SQUARES_ROTATION)
-                    .alpha(SQUARES_ALPHA).duration = SQUARES_DURATION
+                    .alpha(SQUARES_ALPHA).duration =
+                    SQUARES_DURATION
                 intense = Intent(this, DailyActivity::class.java)
             }
             R.id.Statistics -> {
                 Statistics.animate().translationY(SQUARES_TRANSLATION).rotation(-SQUARES_ROTATION)
-                    .alpha(SQUARES_ALPHA).duration = SQUARES_DURATION
+                    .alpha(SQUARES_ALPHA).duration =
+                    SQUARES_DURATION
             }
             R.id.Measures -> {
                 Measures.animate().translationX(-SQUARES_TRANSLATION)
                     .rotation(-SQUARES_ROTATION).alpha(
-                    SQUARES_ALPHA
-                ).duration = SQUARES_DURATION
+                        SQUARES_ALPHA
+                ).duration =
+                    SQUARES_DURATION
             }
         }
         square_name.text = resourceName
@@ -60,9 +71,12 @@ class MainMenu:AppCompatActivity() {
 
     private fun resetAnimation(squaresArray: Array<ImageButton>) {
         for (i in squaresArray.indices) {
-            squaresArray[i].animate().translationY(RESET_TRANSITION).translationX(RESET_TRANSITION).rotation(BASIC_ROTATION).alpha(
+            squaresArray[i].animate().translationY(RESET_TRANSITION).translationX(
+                RESET_TRANSITION
+            ).rotation(BASIC_ROTATION).alpha(
                 SQUARES_BASIC_ALPHA
-            ).duration = SQUARES_DURATION
+            ).duration =
+                SQUARES_DURATION
         }
     }
 }

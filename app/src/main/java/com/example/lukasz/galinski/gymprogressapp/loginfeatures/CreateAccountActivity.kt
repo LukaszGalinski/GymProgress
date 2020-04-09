@@ -1,9 +1,10 @@
-package com.example.lukasz.galinski.gymprogressapp
+package com.example.lukasz.galinski.gymprogressapp.loginfeatures
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.lukasz.galinski.gymprogressapp.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.create_account_layout.*
 import java.util.regex.Pattern
