@@ -52,6 +52,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:id="@+id/removeButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@android:color/transparent"
@@ -72,7 +73,7 @@
         android:padding="10dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
-
+        android:visibility="gone"
         android:src="@drawable/ic_add_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/reps" />

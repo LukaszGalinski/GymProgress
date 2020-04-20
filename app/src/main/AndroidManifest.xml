@@ -29,8 +29,10 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".mainmenu.daily.DailyActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".mainmenu.workout.SeriesExerciseActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".mainmenu.workout.SeriesExerciseActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>
