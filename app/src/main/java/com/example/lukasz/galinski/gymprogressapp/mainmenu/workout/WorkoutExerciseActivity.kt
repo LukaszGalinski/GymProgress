@@ -15,8 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener
-import kotlinx.android.synthetic.main.exercises_add_layout.*
-import kotlinx.android.synthetic.main.exercises_row.view.*
+import kotlinx.android.synthetic.main.exercises_layout.*
+import kotlinx.android.synthetic.main.exercises_list_row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -31,7 +31,6 @@ private lateinit var exercisereference: DatabaseReference
 var elementsCounter: Int = 0
 
 class WorkoutExercise:AppCompatActivity() {
-    //private val res = resources.getStringArray(R.array.exercises_names)
     private var isForward = true
     private var datePicked: String? = ""
     private var bodyPartButtons: ArrayList<Button> = arrayListOf()
@@ -40,11 +39,11 @@ class WorkoutExercise:AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.exercises_add_layout)
+        setContentView(R.layout.exercises_layout)
         exercisereference = firebaseDatabase.reference.child(FIREBASE_DATABASE_PATH)
         bodyPartButtons = arrayListOf(Barki, Klatka, Plecy, Triceps, Biceps, Grzbiet, Przedramiona, Brzuch, Pośladki, Uda, Łydki)
         simple = SimpleDateFormat(DATE_PATTERN_REGEX, Locale.getDefault(Locale.Category.FORMAT))
-
+        //val res = resources.getStringArray(R.array.exercises_names)
         //println("data: "+ res)
         for (i in bodyPartButtons) {
             i.setOnClickListener(openAlertDialogWithPickedPart)
@@ -114,7 +113,7 @@ class WorkoutExercise:AppCompatActivity() {
             .build()
 
         horizontalCalendar.calendarListener = (object: HorizontalCalendarListener() {
-            override fun onDateSelected(date: Date?, position: Int) {
+            override fun onDateSelected(date: Date, position: Int) {
                 datePicked = simple.format(date)
                 loadExercises()
             }
@@ -122,9 +121,9 @@ class WorkoutExercise:AppCompatActivity() {
     }
 
     private val openAlertDialogWithPickedPart = View.OnClickListener { v: View? ->
-        val databaseReference = firebaseDatabase.getReference(FIREBASE_DATABASE_PATH + datePicked).child(
+        val databaseReference = firebaseDatabase.getReference("$FIREBASE_DATABASE_PATH/$datePicked").child(getCurrentUser()).child(
             elementsCounter.inc().toString())
-        val mDialogView = LayoutInflater.from(this).inflate(R.layout.exercise_dialog, null)
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.exercises_add_dialog, null)
         val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
         val entryName = v?.resources?.getResourceEntryName(v.id)
         mDialogView.findViewById<TextView>(R.id.partName).text = entryName
@@ -134,12 +133,8 @@ class WorkoutExercise:AppCompatActivity() {
             alert.dismiss()
         }
         mDialogView.findViewById<Button>(R.id.dialogOk_btn).setOnClickListener {
-            val exercise =
-                ExerciseData(
-                    entryName.toString(),
-                    mDialogView.findViewById<EditText>(R.id.exercisename_editTxt).text.toString(),
-                    elementsCounter.inc().toLong()
-                )
+            val exercise = ExerciseData(entryName.toString(),
+                mDialogView.findViewById<EditText>(R.id.exercisename_editTxt).text.toString(), elementsCounter.inc().toLong())
             databaseReference.setValue(exercise)
             alert.dismiss()
         }

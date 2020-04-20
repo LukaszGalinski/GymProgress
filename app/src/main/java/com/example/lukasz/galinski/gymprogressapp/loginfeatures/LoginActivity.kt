@@ -11,7 +11,7 @@ import com.example.lukasz.galinski.gymprogressapp.R
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.MainMenu
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.login_screen_layout.*
+import kotlinx.android.synthetic.main.account_login_layout.*
 
 private const val USERNAME_LABEL = "username"
 private const val ROTATION_DURATION = 4000L
@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_screen_layout)
+        setContentView(R.layout.account_login_layout)
         firebaseAuth = FirebaseAuth.getInstance()
         square = findViewById(
             R.id.logo_imgView

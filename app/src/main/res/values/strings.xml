@@ -38,6 +38,7 @@
     </string-array>
 
     //series_layout
-    <string name="date_label">Date : 25.03.52</string>
-    <string name="muscle_part_label">Muscle Part : Triceps</string>
+    <string name="date_label">Date : %1$s </string>
+    <string name="muscle_part_label">Muscle Part : %1$s</string>
+    <string name="elements_hint_value"> 0 </string>
 </resources>
