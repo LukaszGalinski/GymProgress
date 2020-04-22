@@ -1,22 +1,70 @@
 package com.example.lukasz.galinski.gymprogressapp.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.lukasz.galinski.gymprogressapp.R
 import com.example.lukasz.galinski.gymprogressapp.dataclasses.SeriesData
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.workout.ListViewButtons
+import kotlinx.android.synthetic.main.exercises_series_list_row.view.*
 
-
-class SeriesAdapter(private val context: Context, private val array: List<SeriesData?>): BaseAdapter() {
+class SeriesAdapter(private val seriesList: List<SeriesData?>): RecyclerView.Adapter<SeriesAdapter.SeriesViewHolder>() {
     private lateinit var listener: ListViewButtons
 
     fun setOnItemClickedListener(listener: ListViewButtons){
         this.listener = listener
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeriesViewHolder {
+        val singleItem = LayoutInflater.from(parent.context).inflate(R.layout.exercises_series_list_row, parent, false)
+        return SeriesViewHolder(singleItem)
+    }
+
+    override fun onBindViewHolder(holder: SeriesViewHolder, position: Int) {
+        val currentItem = seriesList[position]
+
+        holder.seriesId.text = position.inc().toString()
+        holder.reps.text = currentItem?.repsNumber.toString()
+        holder.weight.text = currentItem?.weight.toString()
+
+        holder.addBtn.setOnClickListener {
+            listener.onAddButtonPress()
+        }
+
+        holder.editBtn.setOnClickListener {
+            listener.onEditButtonPress(position)
+        }
+
+        holder.removeBtn.setOnClickListener {
+            listener.onRemoveButtonPress(position)
+        }
+
+        //seperate
+        if (position != seriesList.size-1){
+            holder.addBtn.visibility = View.GONE
+        }else{
+            holder.addBtn.visibility = View.VISIBLE
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return seriesList.size
+    }
+
+    class SeriesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        val seriesId: TextView = itemView.series_id
+        val reps: TextView = itemView.reps
+        val weight: TextView = itemView.weight
+        val addBtn = itemView.addSeries
+        val removeBtn = itemView.removeButton
+        val editBtn = itemView.editButton
+    }
+
+
+/*
     override fun getItem(position: Int): SeriesData? {
         return array[position]
     }
@@ -35,38 +83,31 @@ class SeriesAdapter(private val context: Context, private val array: List<Series
         val id = mainRow.findViewById<TextView>(R.id.series_id)
         val reps = mainRow.findViewById<EditText>(R.id.reps)
         val weight = mainRow.findViewById<EditText>(R.id.weight)
-        val addBtn = mainRow.findViewById<ImageButton>(R.id.addSeries)
-        val removeBtn = mainRow.findViewById<ImageButton>(R.id.removeButton)
+
         id.text = (getItemId(position) + 1).toString()
         reps.setText(array[position]?.repsNumber.toString())
         weight.setText(array[position]?.weight.toString())
 
-        if (position == array.size-1){
-            addBtn.visibility = View.VISIBLE
-        }
+
 
         addBtn.setOnClickListener {
-            println("id: " + id.text)
-            listener.onAddButtonPress(id.text.toString().toLong(), weight.text.toString(), reps.text.toString())
-          //  listener.saveNewData()
+            println("dodano item ")
+            listener.onAddButtonPress()
+
         }
 
         removeBtn.setOnClickListener {
-            println("position" + position )
-      //      listener.saveNewData()
-        //    listener.onRemoveButtonPress(getItemId(position))
+            println("removed" + position )
+
+        }
+
+        editBtn.setOnClickListener {
+            println("edited: "+ id.text.toString().toLong())
+            listener.onEditButtonPress(id.text.toString().toLong())
         }
         return mainRow
     }
+*/
 
-    private fun getDataFromList(reps: EditText, weight: EditText): MutableList<SeriesData?>{
-        val dataFromList : MutableList<SeriesData?> = ArrayList()
-        for (i in array.indices) {
-            dataFromList.add(getItem(i))
-            println("nowa data: " + SeriesData(getItemId(i).toInt(), reps.text.toString().toInt(), weight.text.toString().toFloat()))
-        }
 
-        println("newdata " + dataFromList)
-        return dataFromList
-    }
 }
