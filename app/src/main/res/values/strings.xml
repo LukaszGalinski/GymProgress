@@ -41,4 +41,7 @@
     <string name="date_label">Date : %1$s </string>
     <string name="muscle_part_label">Muscle Part : %1$s</string>
     <string name="elements_hint_value"> 0 </string>
+    <string name="last_element_remove_errror">The last element cannot be removed&#8230;</string>
+    <string name="alert_dialog_save">Save</string>
+    <string name="alert_dialog_cancel">Cancel</string>
 </resources>

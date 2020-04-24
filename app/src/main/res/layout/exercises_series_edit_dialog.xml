@@ -1,26 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/blackHalfTransparent">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:layout_marginTop="10dp">
     <EditText
         android:id="@+id/reps_alert"
-        android:layout_width="50dp"
+        android:layout_width="80dp"
+        style="@style/EditTextTheme"
+        android:gravity="center"
         android:layout_height="wrap_content"
-        android:hint="reps"/>
+        android:hint="@string/reps_number"/>
     <EditText
         android:id="@+id/weight_alert"
-        android:layout_width="50dp"
+        android:layout_width="80dp"
+        style="@style/EditTextTheme"
+        android:gravity="center"
         android:layout_height="wrap_content"
-        android:hint="0"/>
+        android:hint="@string/weight"/>
 </LinearLayout>
-<Button
-    android:id="@+id/sendBtn"
-android:layout_width="match_parent"
-android:layout_height="50dp"
-    android:text="OK"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1.0">
+
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/roundedbtn"
+            android:text="@string/alert_dialog_cancel"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/sendBtn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_weight="0.5"
+            android:background="@drawable/roundedbtn"
+            android:text="@string/alert_dialog_save"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>
