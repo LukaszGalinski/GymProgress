@@ -37,12 +37,9 @@ class CreateAccount: AppCompatActivity() {
                 firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(
-                                baseContext,
-                                resources.getText(R.string.user_added),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(baseContext, resources.getText(R.string.user_added), Toast.LENGTH_SHORT).show()
                             updateUI()
+
                         } else {
                             Toast.makeText(
                                 baseContext,
