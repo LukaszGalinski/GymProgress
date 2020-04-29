@@ -128,7 +128,7 @@
         android:layout_height="@dimen/button_height"
         android:layout_marginBottom="@dimen/main_menu_square_margin"
         android:alpha="0"
-        android:background="@drawable/roundedbtn"
+        android:background="@drawable/rounded_btn"
         android:text="@string/main_menu_confirm_button" android:textColor="@color/whiteColor"
         android:textStyle="bold"
         android:visibility="gone"

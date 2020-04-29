@@ -19,5 +19,8 @@
     //series Layout
     <dimen name="padding_labels">10dp</dimen>
 
+    //measures
+    <dimen name="measures_editText_height">50dp</dimen>
+
 
 </resources>

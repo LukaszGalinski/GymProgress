@@ -150,7 +150,7 @@
         android:layout_height="60dp"
         android:text="@string/daily_save"
         android:textColor="@color/hintColor"
-        android:background="@drawable/roundedbtn"
+        android:background="@drawable/rounded_btn"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

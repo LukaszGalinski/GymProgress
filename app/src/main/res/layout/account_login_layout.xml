@@ -86,7 +86,7 @@
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
         android:layout_marginTop="25dp"
-        android:background="@drawable/roundedbtn"
+        android:background="@drawable/rounded_btn"
         android:text="@string/login_btn"
         android:textColor="@color/whiteColor"
         android:textStyle="bold"

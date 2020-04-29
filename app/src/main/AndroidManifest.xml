@@ -32,6 +32,9 @@
             android:name=".mainmenu.workout.SeriesExerciseActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
+        <activity
+            android:name=".mainmenu.MeasuresActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

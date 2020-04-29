@@ -64,6 +64,7 @@ class MainMenu:AppCompatActivity() {
                         SQUARES_ALPHA
                 ).duration =
                     SQUARES_DURATION
+                intense = Intent(this, MeasuresActivity::class.java)
             }
         }
         square_name.text = resourceName

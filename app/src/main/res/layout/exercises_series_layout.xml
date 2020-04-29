@@ -131,7 +131,7 @@
         android:id="@+id/daily_save"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:background="@drawable/roundedbtn"
+        android:background="@drawable/rounded_btn"
         android:text="@string/daily_save"
         android:textColor="@color/hintColor"
         android:textStyle="bold"

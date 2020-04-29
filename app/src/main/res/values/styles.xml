@@ -8,11 +8,26 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="EditTextTheme">
+    <style name="EditTextTheme" parent="Widget.AppCompat.EditText">
         <item name="android:textColorHint">@color/hintColor</item>
         <item name="android:cursorVisible">true</item>
+        <item name="textColorNormal">@color/whiteColor</item>
         <item name="android:textCursorDrawable">@color/whiteColor</item>
     </style>
+
+    <style name="EditTextMeasures" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/hintColor</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:textColor">@color/hintColor</item>
+        <item name="background">@android:color/transparent</item>
+        <item name="backgroundColor">@android:color/transparent</item>
+        <item name="maxCharacterCount">10</item>
+        <item name="android:gravity">center</item>
+        <item name="paddingStart">@dimen/padding_labels</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:textCursorDrawable">@color/whiteColor</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

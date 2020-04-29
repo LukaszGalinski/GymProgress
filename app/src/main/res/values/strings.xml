@@ -44,4 +44,16 @@
     <string name="last_element_remove_errror">The last element cannot be removed&#8230;</string>
     <string name="alert_dialog_save">Save</string>
     <string name="alert_dialog_cancel">Cancel</string>
+
+    //measures
+    <string name="measures_weight">Weight</string>
+    <string name="measures_height">Height</string>
+    <string name="measures_chest">Chest</string>
+    <string name="measures_waist">Waist</string>
+    <string name="measures_hip">Hip</string>
+    <string name="measures_arm">Arm</string>
+    <string name="measures_thigh">Thigh</string>
+    <string name="measures_calf">Calf</string>
+    <string name="choose_date">Press to filter the results</string>
+
 </resources>
