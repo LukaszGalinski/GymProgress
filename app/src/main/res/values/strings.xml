@@ -55,5 +55,10 @@
     <string name="measures_thigh">Thigh</string>
     <string name="measures_calf">Calf</string>
     <string name="choose_date">Press to filter the results</string>
+    <string name="data_save_success">Data saved with success</string>
+    <string name="data_load_success">Success while loading the data</string>
+    <string name="data_load_error">Error while loading the data</string>
 
+    <string name="value_newline_kg">%1$s kg\n %2$s</string>
+    <string name="value_newline_cm">%1$s cm\n %2$s</string>
 </resources>

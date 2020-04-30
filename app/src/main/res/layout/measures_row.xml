@@ -3,13 +3,96 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/darkGray">
 
     <TextView
-        android:id="@+id/texthold"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:textColor="#CC0A0A"
+        android:id="@+id/grid_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="22-04-2020"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/whiteColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <GridLayout
+        android:id="@+id/gridlayout_custom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="2"
+        app:layout_constraintTop_toBottomOf="@id/grid_date">
+
+        <TextView
+            android:id="@+id/grid_weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0.25"
+            android:layout_row="0"
+            android:layout_column="0"
+            style="@style/GridLayoutTextView"
+            />
+        <TextView
+            android:id="@+id/grid_height"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0.25"
+            android:layout_row="0"
+            android:layout_column="1"
+            style="@style/GridLayoutTextView"
+             />
+        <TextView
+            android:id="@+id/grid_chest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0.25"
+            android:layout_row="0"
+            android:layout_column="2"
+            style="@style/GridLayoutTextView" />
+        <TextView
+            android:id="@+id/grid_waist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0.25"
+            android:layout_row="0"
+            android:layout_column="3"
+            style="@style/GridLayoutTextView" />
+
+        <TextView
+            android:id="@+id/grid_hip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0.25"
+            android:layout_row="1"
+            android:layout_column="0"
+            style="@style/GridLayoutTextView"
+            />
+        <TextView
+            android:id="@+id/grid_arm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0.25"
+            android:layout_row="1"
+            android:layout_column="1"
+            style="@style/GridLayoutTextView" />
+        <TextView
+            android:id="@+id/grid_thigh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0.25"
+            android:layout_row="1"
+            android:layout_column="2"
+            style="@style/GridLayoutTextView" />
+        <TextView
+            android:id="@+id/grid_calf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0.25"
+            android:layout_row="1"
+            android:layout_column="3"
+            style="@style/GridLayoutTextView" />
+    </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
