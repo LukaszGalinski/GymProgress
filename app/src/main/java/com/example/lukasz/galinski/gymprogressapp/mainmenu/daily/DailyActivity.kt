@@ -26,8 +26,7 @@ class DailyActivity:AppCompatActivity() {
         setContentView(R.layout.daily_tasks_layout)
         val db: FirebaseDatabase = FirebaseDatabase.getInstance()
         user = getUserEmail()
-        date = SimpleDateFormat(
-            DATE_FORMAT, Locale.getDefault()).format(Date())
+        date = SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(Date())
         ref = db.reference.child(
             REFERENCE_PATCH_NAME
         ).child("$date/$user")
@@ -96,13 +95,7 @@ class DailyActivity:AppCompatActivity() {
         val vegetableStatus = vegetable_checkbox.isChecked
         val fruitsStatus = apple_checkbox.isChecked
         val gymStatus = practice_checkbox.isChecked
-        val values: DailyTasksData? =
-            DailyTasksData(
-                water,
-                vegetableStatus,
-                fruitsStatus,
-                gymStatus
-            )
+        val values: DailyTasksData? = DailyTasksData(water, vegetableStatus, fruitsStatus, gymStatus)
         ref.setValue(values)
     }
 }

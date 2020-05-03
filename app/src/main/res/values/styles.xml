@@ -22,10 +22,18 @@
         <item name="background">@android:color/transparent</item>
         <item name="backgroundColor">@android:color/transparent</item>
         <item name="maxCharacterCount">10</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">left</item>
         <item name="paddingStart">@dimen/padding_labels</item>
         <item name="android:inputType">numberDecimal</item>
         <item name="android:textCursorDrawable">@color/whiteColor</item>
+        <item name="android:hint">@string/value_0</item>
+    </style>
+
+    <style name="TextViewMeasures" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/hintColor</item>
+        <item name="android:gravity">center</item>
+        <item name="paddingStart">@dimen/padding_labels</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="GridLayoutTextView" parent="Widget.AppCompat.TextView">

@@ -1,13 +1,15 @@
 package com.example.lukasz.galinski.gymprogressapp.mainmenu
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lukasz.galinski.gymprogressapp.R
-import com.example.lukasz.galinski.gymprogressapp.adapters.SeriesAdapter
-import com.example.lukasz.galinski.gymprogressapp.dataclasses.SeriesData
-import com.example.lukasz.galinski.gymprogressapp.mainmenu.workout.listRecords
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,22 +21,29 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.reflect.KProperty1
 
-private const val DATE_PATTERN_REGEX = "dd-MM-yyyy"
+private const val DATE_PATTERN = "dd-MM-yyyy"
 private const val MEASURES_REFERENCE = "measures"
-val editTextHints = arrayOf("weight", "height", "chest", "waist", "hip", "arm", "thigh", "calf")
+val editTextHints = listOf("weight", "height", "chest", "waist", "hip", "arm", "thigh", "calf")
 private val editTextsArray = ArrayList<EditText>()
+private val dateList = ArrayList<String>()
+private val measuresList = ArrayList<MeasuresData?>()
+private lateinit var measuresAdapter: MeasuresAdapter
 class MeasuresActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.measures_layout)
-        val currentDay = SimpleDateFormat(DATE_PATTERN_REGEX, Locale.getDefault()).format(Date())
+        val currentDay = SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(Date())
         getEditTextsFieldsIntoArray(editTextsArray)
         loadAllMeasures()
-        loadMeasureFromToday(currentDay)
+        loadMeasureFromTodayIntoEditTexts(currentDay)
 
         measures_save.setOnClickListener {
             sendMeasuresToDatabase(editTextsArray, currentDay)
+        }
+
+        filter_results.setOnClickListener {
+            openFilterAlertWithCalendarView()
         }
     }
 
@@ -77,12 +86,11 @@ class MeasuresActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadMeasureFromToday(currentDay: String){
+    private fun loadMeasureFromTodayIntoEditTexts(currentDay: String){
         val reference = FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getCurrentUser()}/$currentDay")
         reference.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                val loadedData: MeasuresData? = p0.getValue(
-                    MeasuresData::class.java)
+                val loadedData: MeasuresData? = p0.getValue(MeasuresData::class.java)
                 setEditTextsFields(editTextsArray, loadedData)
                 toast(resources.getString(R.string.data_load_success))
             }
@@ -113,22 +121,65 @@ class MeasuresActivity : AppCompatActivity() {
     }
 
     private fun loadAllMeasures(){
+        measuresList.clear()
+        dateList.clear()
         val reference = FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getCurrentUser()}/")
         reference.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
                 for (data in p0.children){
                     val exercise: MeasuresData? = data.getValue(MeasuresData::class.java)
-                    println("data key: " + data.key)
-                    println("p0: " + exercise)
-
+                    val date = data.key.toString()
+                    measuresList.add(exercise)
+                    dateList.add(date)
                 }
 
+                recycler_view_measures.layoutManager = LinearLayoutManager(this@MeasuresActivity)
+                measuresAdapter = MeasuresAdapter(this@MeasuresActivity, measuresList, editTextHints, dateList)
+                recycler_view_measures.adapter = measuresAdapter
+            }
 
+            override fun onCancelled(p0: DatabaseError) {
+                toast(resources.getString(R.string.data_load_error))
+            }
+        })
+    }
 
-             //   series_listview.layoutManager = LinearLayoutManager(this@SeriesExerciseActivity)
-           //     val arrayAdapter = SeriesAdapter(listRecords)
-            //    series_listview.adapter = arrayAdapter
-            //    customAdapterButtonsSet(arrayAdapter)
+    private fun openFilterAlertWithCalendarView(){
+        val mDialogView = LayoutInflater.from(this@MeasuresActivity).inflate(R.layout.measures_calendar_alert, null)
+        val mBuilder = AlertDialog.Builder(this@MeasuresActivity).setView(mDialogView)
+
+        val positiveButton = mDialogView.findViewById<Button>(R.id.measures_next)
+        val cancelButton = mDialogView.findViewById<Button>(R.id.measures_cancel)
+        val calendar = mDialogView.findViewById<CalendarView>(R.id.calendarView2)
+        val alert = mBuilder.show()
+
+        positiveButton.setOnClickListener {
+            val simple = SimpleDateFormat(DATE_PATTERN, Locale.getDefault(Locale.Category.FORMAT))
+            val dateFromCalendar = calendar.date
+            var formattedDate = simple.format(dateFromCalendar)
+            calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
+                formattedDate = "$dayOfMonth-$month-$year"
+            }
+            loadMeasureFromSpecificDate(formattedDate)
+            alert.dismiss()
+        }
+
+        cancelButton.setOnClickListener {
+            alert.dismiss()
+        }
+    }
+
+    private fun loadMeasureFromSpecificDate(specificDate: String){
+        measuresList.clear()
+        dateList.clear()
+        val reference = FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getCurrentUser()}/$specificDate")
+        reference.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                val loadedData: MeasuresData? = p0.getValue(MeasuresData::class.java)
+                val date = p0.key.toString()
+                measuresList.add(loadedData)
+                dateList.add(date)
+                measuresAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(p0: DatabaseError) {

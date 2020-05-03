@@ -5,128 +5,226 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/df">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="fill_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.5"
+            app:layout_constraintHeight_percent="0.553"
+            android:alpha="0.80"
+            android:src="@drawable/man"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextViewMeasures"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/measures_weight"
+            app:layout_constraintEnd_toStartOf="@id/linear_edit"
+            app:layout_constraintHeight_percent="0.069"
+            app:layout_constraintTop_toTopOf="@+id/imageView4"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/TextViewMeasures"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/measures_weight"
+            android:text="@string/measures_height"
+            app:layout_constraintEnd_toStartOf="@id/linear_edit"
+            app:layout_constraintHeight_percent="0.069"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/TextViewMeasures"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/measures_weight"
+            android:text="@string/measures_chest"
+            app:layout_constraintEnd_toStartOf="@id/linear_edit"
+            app:layout_constraintHeight_percent="0.069"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/TextViewMeasures"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/measures_weight"
+            android:text="@string/measures_waist"
+            app:layout_constraintEnd_toStartOf="@id/linear_edit"
+            app:layout_constraintHeight_percent="0.069"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/textView7"
+            style="@style/TextViewMeasures"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/measures_weight"
+            android:text="@string/measures_hip"
+            app:layout_constraintEnd_toStartOf="@id/linear_edit"
+            app:layout_constraintHeight_percent="0.069"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/TextViewMeasures"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/measures_weight"
+            android:text="@string/measures_arm"
+            app:layout_constraintEnd_toStartOf="@id/linear_edit"
+            app:layout_constraintHeight_percent="0.069"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/textView9"
+            style="@style/TextViewMeasures"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/measures_weight"
+            android:text="@string/measures_thigh"
+            app:layout_constraintEnd_toStartOf="@id/linear_edit"
+            app:layout_constraintHeight_percent="0.069"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            style="@style/TextViewMeasures"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/measures_calf"
+            android:hint="@string/measures_weight"
+            app:layout_constraintEnd_toStartOf="@id/linear_edit"
+            app:layout_constraintHeight_percent="0.069"
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_constraintWidth_percent="0.25" />
 
         <LinearLayout
             android:id="@+id/linear_edit"
             android:layout_width="0dp"
-            android:layout_height="400dp"
-            android:layout_weight="0.3"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/measures_editText_height"
-                android:hint="@string/measures_weight"
-                style="@style/EditTextMeasures"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/measures_editText_height"
-                android:hint="@string/measures_height"
-                style="@style/EditTextMeasures"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/measures_editText_height"
-                style="@style/EditTextMeasures"
-                android:hint="@string/measures_chest"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/measures_editText_height"
-                android:hint="@string/measures_waist"
-                style="@style/EditTextMeasures"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/measures_editText_height"
-                style="@style/EditTextMeasures"
-                android:hint="@string/measures_hip"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/measures_editText_height"
-                style="@style/EditTextMeasures"
-                android:hint="@string/measures_arm"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/measures_editText_height"
-                style="@style/EditTextMeasures"
-                android:hint="@string/measures_thigh"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/measures_editText_height"
-                style="@style/EditTextMeasures"
-                android:hint="@string/measures_calf"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="400dp"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
-        <ImageView
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:weightSum="1"
+            app:layout_constraintWidth_percent="0.20"
+            app:layout_constraintHeight_percent="0.553"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imageView4">
+        <EditText
+            android:id="@+id/editText"
+            style="@style/EditTextMeasures"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:alpha="0.80"
-            android:src="@drawable/man"/>
+            android:layout_height="0dp"
+            android:layout_weight="0.125"
+            android:autofillHints="0"
+            android:hint="@string/value_0"
+            />
+
+        <EditText
+            android:id="@+id/editText2"
+            style="@style/EditTextMeasures"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:autofillHints="0"
+            android:layout_weight="0.125"
+            android:hint="@string/value_0" />
+
+        <EditText
+            android:id="@+id/editText3"
+            style="@style/EditTextMeasures"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:autofillHints="0"
+            android:layout_weight="0.125"
+            android:hint="@string/value_0" />
+
+        <EditText
+            android:id="@+id/editText4"
+            style="@style/EditTextMeasures"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:autofillHints="0"
+            android:layout_weight="0.125"
+            android:hint="@string/value_0" />
+
+        <EditText
+            android:id="@+id/editText5"
+            style="@style/EditTextMeasures"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:autofillHints="0"
+            android:layout_weight="0.125"
+            android:hint="@string/value_0" />
+
+        <EditText
+            android:id="@+id/editText6"
+            style="@style/EditTextMeasures"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:autofillHints="0"
+            android:layout_weight="0.125"
+            android:hint="@string/value_0" />
+
+        <EditText
+            android:id="@+id/editText7"
+            style="@style/EditTextMeasures"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:autofillHints="0"
+            android:layout_weight="0.125"
+            android:hint="@string/value_0" />
+
+        <EditText
+            style="@style/EditTextMeasures"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:autofillHints="0"
+            android:layout_weight="0.125"
+            android:hint="@string/value_0" />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/measures_save"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:textColor="@color/whiteColor"
+            android:background="@drawable/rounded_btn"
             android:text="@string/daily_save"
-            android:background="@drawable/rounded_btn"/>
-    </LinearLayout>
-    </LinearLayout>
+            android:textColor="@color/whiteColor"
+            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toStartOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
-    <Button
-        android:id="@+id/filter_results"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/choose_date"
-        android:textColor="@color/hintColor"
-        android:background="@color/blackHalfTransparent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        />
+        <Button
+            android:id="@+id/filter_results"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/blackHalfTransparent"
+            android:text="@string/choose_date"
+            android:textColor="@color/hintColor"
+            app:layout_constraintTop_toBottomOf="@+id/measures_save" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_measures"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/filter_results" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_measures"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/filter_results" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
