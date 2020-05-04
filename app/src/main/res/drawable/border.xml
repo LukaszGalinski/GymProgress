@@ -6,7 +6,8 @@
         android:bottomRightRadius="0dp"
         android:radius="2dp"
         android:topRightRadius="0dp" />
+    <solid android:color="@color/blackHalfTransparent" />
     <stroke
-        android:width="3dp"
+        android:width="0.5dp"
         android:color="@android:color/white" />
 </shape>

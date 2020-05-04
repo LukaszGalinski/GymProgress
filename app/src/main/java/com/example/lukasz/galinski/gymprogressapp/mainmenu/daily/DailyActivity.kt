@@ -16,6 +16,7 @@ import java.util.*
 private const val REFERENCE_PATCH_NAME = "daily/"
 private const val WATER_VALUE_REFERENCE = "water"
 private const val DATE_FORMAT = "dd-MM-yyyy"
+private const val DOUBLE_DIGIT_FORMAT = "%02d"
 var water: Float = 0f
 var date: String = ""
 var user : String = ""
@@ -33,7 +34,9 @@ class DailyActivity:AppCompatActivity() {
         loadData(ref)
 
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            date = "$dayOfMonth-$month-$year"
+            val monthValue = String.format(DOUBLE_DIGIT_FORMAT, month+1)
+            val day = String.format(DOUBLE_DIGIT_FORMAT, dayOfMonth)
+            date = "$day-$monthValue-$year"
             ref = db.reference.child(
                 REFERENCE_PATCH_NAME
             ).child("$date/$user")

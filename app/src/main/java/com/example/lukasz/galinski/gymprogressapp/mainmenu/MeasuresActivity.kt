@@ -22,6 +22,7 @@ import kotlin.collections.ArrayList
 import kotlin.reflect.KProperty1
 
 private const val DATE_PATTERN = "dd-MM-yyyy"
+private const val DOUBLE_DIGIT_FORMAT = "%02d"
 private const val MEASURES_REFERENCE = "measures"
 val editTextHints = listOf("weight", "height", "chest", "waist", "hip", "arm", "thigh", "calf")
 private val editTextsArray = ArrayList<EditText>()
@@ -44,6 +45,10 @@ class MeasuresActivity : AppCompatActivity() {
 
         filter_results.setOnClickListener {
             openFilterAlertWithCalendarView()
+        }
+
+        reset_filters.setOnClickListener {
+            loadAllMeasures()
         }
     }
 
@@ -151,16 +156,19 @@ class MeasuresActivity : AppCompatActivity() {
         val positiveButton = mDialogView.findViewById<Button>(R.id.measures_next)
         val cancelButton = mDialogView.findViewById<Button>(R.id.measures_cancel)
         val calendar = mDialogView.findViewById<CalendarView>(R.id.calendarView2)
+
+        val simple = SimpleDateFormat(DATE_PATTERN, Locale.getDefault(Locale.Category.FORMAT))
+        var date = simple.format(calendar.date)
+
+        calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            val monthVal = String.format(DOUBLE_DIGIT_FORMAT, month+1)
+            val day = String.format(DOUBLE_DIGIT_FORMAT, dayOfMonth)
+            date = "$day-$monthVal-$year"
+        }
         val alert = mBuilder.show()
 
         positiveButton.setOnClickListener {
-            val simple = SimpleDateFormat(DATE_PATTERN, Locale.getDefault(Locale.Category.FORMAT))
-            val dateFromCalendar = calendar.date
-            var formattedDate = simple.format(dateFromCalendar)
-            calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
-                formattedDate = "$dayOfMonth-$month-$year"
-            }
-            loadMeasureFromSpecificDate(formattedDate)
+            loadMeasureFromSpecificDate(date)
             alert.dismiss()
         }
 
