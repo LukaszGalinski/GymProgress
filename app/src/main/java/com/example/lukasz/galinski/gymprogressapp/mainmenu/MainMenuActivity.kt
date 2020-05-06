@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.lukasz.galinski.gymprogressapp.R
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.workout.WorkoutExercise
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.daily.DailyActivity
+import com.example.lukasz.galinski.gymprogressapp.mainmenu.measures.MeasuresActivity
 import kotlinx.android.synthetic.main.main_menu_layout.*
 
 private const val SQUARES_DURATION = 1000L

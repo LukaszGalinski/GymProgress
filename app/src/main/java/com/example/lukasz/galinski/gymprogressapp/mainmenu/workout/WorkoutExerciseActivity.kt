@@ -24,6 +24,7 @@ import kotlin.collections.ArrayList
 private val groupNames = listOf("Barki","Klatka","Plecy","Triceps","Biceps","Grzbiet","Przedramiona","Brzuch","Pośladki","Uda","Łydki")
 private const val FIREBASE_DATABASE_PATH = "workout"
 private const val CALENDAR_START_END_DAY = 1
+private const val EXERCISE_NAME_REF = "exerciseName"
 private const val FIREBASE_SERIES_REFERENCE = "reference_series"
 private const val DATE_PATTERN_REGEX = "dd-MM-yyyy"
 private lateinit var simple: SimpleDateFormat
@@ -43,20 +44,15 @@ class WorkoutExercise:AppCompatActivity() {
         exercisereference = firebaseDatabase.reference.child(FIREBASE_DATABASE_PATH)
         bodyPartButtons = arrayListOf(Barki, Klatka, Plecy, Triceps, Biceps, Grzbiet, Przedramiona, Brzuch, Pośladki, Uda, Łydki)
         simple = SimpleDateFormat(DATE_PATTERN_REGEX, Locale.getDefault(Locale.Category.FORMAT))
-        //val res = resources.getStringArray(R.array.exercises_names)
-        //println("data: "+ res)
         for (i in bodyPartButtons) {
             i.setOnClickListener(openAlertDialogWithPickedPart)
         }
         val userName = getCurrentUser()
         datePicked = SimpleDateFormat(DATE_PATTERN_REGEX, Locale.getDefault()).format(Date())
-        updateSpinner()
-        createHorizontalCalendar()
-        loadExercises()
 
         listview.onItemClickListener = AdapterView.OnItemClickListener { _, view, _, _ ->
-            val exerciseId = view.series_number.text.toString()
-            val intent = Intent(this, SeriesExerciseActivity::class.java)
+            val exerciseId = view?.series_number?.text.toString()
+            val intent = Intent(applicationContext, SeriesExerciseActivity::class.java)
             val calendar = calendarView.horizontalCalendar.selectedDate
             val str: String = simple.format(calendar)
             val refString = "$FIREBASE_DATABASE_PATH/$str/$userName/$exerciseId"
@@ -64,6 +60,9 @@ class WorkoutExercise:AppCompatActivity() {
             intent.putExtra(FIREBASE_SERIES_REFERENCE, sendNextArray)
             startActivity(intent)
         }
+        updateSpinner()
+        createHorizontalCalendar()
+        loadExercises()
     }
 
     private fun getCurrentUser(): String{
@@ -76,20 +75,18 @@ class WorkoutExercise:AppCompatActivity() {
         ref.addValueEventListener(object: ValueEventListener{
         override fun onDataChange(p0: DataSnapshot) {
             listRecords.clear()
-            elementsCounter = p0.childrenCount.toInt()
             for (i in p0.children) {
                 val exercise: ExerciseData? = i.getValue(
                     ExerciseData::class.java)
+                elementsCounter = exercise?.exerciseId?.toInt() ?: 0
+
                 if (exercise?.musclePartName == spinner.selectedItem.toString()) {
                     listRecords.add(exercise)
                 }
             }
-            val arrayAdapter =
-                ExercisesAdapter(
-                    applicationContext,
-                    listRecords
-                )
+            val arrayAdapter = ExercisesAdapter(applicationContext, listRecords)
             listview.adapter = arrayAdapter
+            customAdapterButtonsSet(arrayAdapter)
         }
         override fun onCancelled(p0: DatabaseError) {
         }
@@ -174,6 +171,50 @@ class WorkoutExercise:AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 loadExercises()
             }
+        }
+    }
+
+    private fun customAdapterButtonsSet(arrayAdapter: ExercisesAdapter){
+        arrayAdapter.setOnItemClickedListener(object: ListViewButtons{
+            override fun onAddButtonPress() {}
+
+            override fun onRemoveButtonPress(position: Int) {
+                removeExerciseAlert(position.toString())
+            }
+
+            override fun onEditButtonPress(position: Int) {
+                editExerciseAlert(position.toString())
+            }
+        })
+    }
+
+    private fun removeExerciseAlert(exerciseId: String){
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.exercises_remove_alert, null)
+        val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
+        val alert = mBuilder.show()
+
+        mDialogView.findViewById<Button>(R.id.dialogCancel_btn).setOnClickListener {
+            alert.dismiss()
+        }
+        mDialogView.findViewById<Button>(R.id.dialogOk_btn).setOnClickListener {
+            firebaseDatabase.getReference("$FIREBASE_DATABASE_PATH/$datePicked/${getCurrentUser()}/$exerciseId").removeValue()
+            alert.dismiss()
+        }
+    }
+
+    private fun editExerciseAlert(exerciseId: String){
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.exercises_edit_alert, null)
+        val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
+        val alert = mBuilder.show()
+
+        val exerciseName = mDialogView.findViewById<EditText>(R.id.exercise_name)
+        mDialogView.findViewById<Button>(R.id.dialogCancel_btn).setOnClickListener {
+            alert.dismiss()
+        }
+        mDialogView.findViewById<Button>(R.id.dialogOk_btn).setOnClickListener {
+            firebaseDatabase.getReference("$FIREBASE_DATABASE_PATH/$datePicked/${getCurrentUser()}/$exerciseId/$EXERCISE_NAME_REF")
+                .setValue(exerciseName.text.toString())
+            alert.dismiss()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.lukasz.galinski.gymprogressapp.mainmenu
+package com.example.lukasz.galinski.gymprogressapp.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,14 +8,16 @@ import android.widget.GridLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lukasz.galinski.gymprogressapp.R
+import com.example.lukasz.galinski.gymprogressapp.dataclasses.MeasuresData
 import kotlinx.android.synthetic.main.measures_row.view.*
-
 
 class MeasuresAdapter(private val context: Context, private val seriesList: List<MeasuresData?>, private val partNamesList: List<String>, private val dateList: List<String>): RecyclerView.Adapter<MeasuresAdapter.MeasuresViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeasuresViewHolder {
         val singleItem = LayoutInflater.from(parent.context).inflate(R.layout.measures_row, parent, false)
-        return MeasuresViewHolder(singleItem)
+        return MeasuresViewHolder(
+            singleItem
+        )
     }
 
     override fun onBindViewHolder(holder: MeasuresViewHolder, position: Int) {

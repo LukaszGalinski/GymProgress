@@ -44,6 +44,7 @@
     <string name="last_element_remove_errror">The last element cannot be removed&#8230;</string>
     <string name="alert_dialog_save">Save</string>
     <string name="alert_dialog_cancel">Cancel</string>
+    <string name="alert_dialog_remove">Remove</string>
     <string name="alert_dialog_ok">OK</string>
 
     //measures
@@ -63,7 +64,10 @@
 
     <string name="value_newline_kg">%1$s kg\n %2$s</string>
     <string name="value_newline_cm">%1$s cm\n %2$s</string>
-    <string name="no_matching_results">%1$s \n\n\n None of the results match the given filters</string>
+    <string name="no_matching_results">%1$s \n\n\n None of the results match the given <filters></filters></string>
     <string name="value_0">0</string>
+    <string name="remove_element_title">Are you sure? </string>
+    <string name="remove_element_info">You want to remove exercise? All added series will be removed </string>
+    <string name="rename_element">Rename exercise name</string>
 
 </resources>

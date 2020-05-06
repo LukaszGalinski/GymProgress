@@ -1,4 +1,4 @@
-package com.example.lukasz.galinski.gymprogressapp.mainmenu
+package com.example.lukasz.galinski.gymprogressapp.dataclasses
 
 data class MeasuresData (
     val weight: Float? = 0F,

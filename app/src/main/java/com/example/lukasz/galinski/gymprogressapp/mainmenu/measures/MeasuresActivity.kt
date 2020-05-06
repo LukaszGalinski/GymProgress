@@ -1,4 +1,4 @@
-package com.example.lukasz.galinski.gymprogressapp.mainmenu
+package com.example.lukasz.galinski.gymprogressapp.mainmenu.measures
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lukasz.galinski.gymprogressapp.R
+import com.example.lukasz.galinski.gymprogressapp.adapters.MeasuresAdapter
+import com.example.lukasz.galinski.gymprogressapp.dataclasses.MeasuresData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -95,7 +97,8 @@ class MeasuresActivity : AppCompatActivity() {
         val reference = FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getCurrentUser()}/$currentDay")
         reference.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                val loadedData: MeasuresData? = p0.getValue(MeasuresData::class.java)
+                val loadedData: MeasuresData? = p0.getValue(
+                    MeasuresData::class.java)
                 setEditTextsFields(editTextsArray, loadedData)
                 toast(resources.getString(R.string.data_load_success))
             }
@@ -105,7 +108,6 @@ class MeasuresActivity : AppCompatActivity() {
             }
         })
     }
-
 
     private fun <R> readInstanceProperty(instance: MeasuresData?, propertyName: String): R {
         return if (instance != null){
@@ -132,15 +134,23 @@ class MeasuresActivity : AppCompatActivity() {
         reference.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
                 for (data in p0.children){
-                    val exercise: MeasuresData? = data.getValue(MeasuresData::class.java)
+                    val exercise: MeasuresData? = data.getValue(
+                        MeasuresData::class.java)
                     val date = data.key.toString()
                     measuresList.add(exercise)
                     dateList.add(date)
                 }
 
                 recycler_view_measures.layoutManager = LinearLayoutManager(this@MeasuresActivity)
-                measuresAdapter = MeasuresAdapter(this@MeasuresActivity, measuresList, editTextHints, dateList)
-                recycler_view_measures.adapter = measuresAdapter
+                measuresAdapter =
+                    MeasuresAdapter(
+                        this@MeasuresActivity,
+                        measuresList,
+                        editTextHints,
+                        dateList
+                    )
+                recycler_view_measures.adapter =
+                    measuresAdapter
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -166,7 +176,6 @@ class MeasuresActivity : AppCompatActivity() {
             date = "$day-$monthVal-$year"
         }
         val alert = mBuilder.show()
-
         positiveButton.setOnClickListener {
             loadMeasureFromSpecificDate(date)
             alert.dismiss()
@@ -183,7 +192,8 @@ class MeasuresActivity : AppCompatActivity() {
         val reference = FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getCurrentUser()}/$specificDate")
         reference.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                val loadedData: MeasuresData? = p0.getValue(MeasuresData::class.java)
+                val loadedData: MeasuresData? = p0.getValue(
+                    MeasuresData::class.java)
                 val date = p0.key.toString()
                 measuresList.add(loadedData)
                 dateList.add(date)
