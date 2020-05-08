@@ -58,6 +58,7 @@ class MainMenu:AppCompatActivity() {
                 Statistics.animate().translationY(SQUARES_TRANSLATION).rotation(-SQUARES_ROTATION)
                     .alpha(SQUARES_ALPHA).duration =
                     SQUARES_DURATION
+                intense = Intent(this, ChartsActivity::class.java)
             }
             R.id.Measures -> {
                 Measures.animate().translationX(-SQUARES_TRANSLATION)

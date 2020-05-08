@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/df">
+
+    <FrameLayout
+        android:id="@+id/frame_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/blackHalfTransparent"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    <Spinner
+        android:id="@+id/partName_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@color/buttonColor"
+        />
+    </FrameLayout>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/line_chart_ez"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintTop_toBottomOf="@+id/frame_spinner" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/blackHalfTransparent"
+        android:textColor="@color/whiteColor"
+        android:layout_margin="5dp"
+        android:text="month"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_chart_ez"
+        app:layout_constraintWidth_percent="0.2" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/blackHalfTransparent"
+        android:textColor="@color/whiteColor"
+        android:layout_margin="5dp"
+        android:text="week"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@id/line_chart_ez"
+        app:layout_constraintWidth_percent="0.2" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:background="@color/blackHalfTransparent"
+        android:text="calendar"
+        android:textColor="@color/whiteColor"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@id/line_chart_ez"
+        app:layout_constraintWidth_percent="0.2" />
+
+    <TextView
+        android:id="@+id/lowest_value"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="@string/value_lowest"
+        style="@style/TextViewMeasures"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/highest_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintWidth_percent="0.3" />
+
+    <TextView
+        android:id="@+id/highest_value"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        style="@style/TextViewMeasures"
+        android:text="@string/value_highest"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintWidth_percent="0.3" />
+
+    <TextView
+        android:id="@+id/average_value"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        style="@style/TextViewMeasures"
+        android:text="@string/value_average"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/highest_value"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintWidth_percent="0.3" />
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

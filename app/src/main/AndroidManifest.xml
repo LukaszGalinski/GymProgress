@@ -35,6 +35,10 @@
         <activity
             android:name=".mainmenu.measures.MeasuresActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".mainmenu.ChartsActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
 
     </application>
 

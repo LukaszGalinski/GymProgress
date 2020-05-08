@@ -66,4 +66,11 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
+    <style name="MyAppThemeCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+            <item name="android:colorControlNormal">@color/hintColor</item>
+            <item name="android:colorControlActivated">@color/greenColor</item>
+            <item name="android:colorControlHighlight">#c51162</item>
+            <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+    </style>
 </resources>

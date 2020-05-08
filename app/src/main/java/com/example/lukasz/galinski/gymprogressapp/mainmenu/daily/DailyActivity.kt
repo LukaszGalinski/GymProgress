@@ -5,10 +5,10 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.lukasz.galinski.gymprogressapp.R
 import com.example.lukasz.galinski.gymprogressapp.dataclasses.DailyTasksData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.example.lukasz.galinski.gymprogressapp.R
 import kotlinx.android.synthetic.main.daily_tasks_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
