@@ -28,9 +28,7 @@ class DailyActivity:AppCompatActivity() {
         val db: FirebaseDatabase = FirebaseDatabase.getInstance()
         user = getUserEmail()
         date = SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(Date())
-        ref = db.reference.child(
-            REFERENCE_PATCH_NAME
-        ).child("$date/$user")
+        ref = db.reference.child(REFERENCE_PATCH_NAME).child("$date/$user")
         loadData(ref)
 
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->

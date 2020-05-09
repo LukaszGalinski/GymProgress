@@ -70,8 +70,8 @@
     <string name="remove_element_info">You want to remove exercise? All added series will be removed </string>
     <string name="rename_element">Rename exercise name</string>
 
-    <string name="value_lowest">%1$s \n\n lowest</string>
-    <string name="value_highest">%1$s \n\n <b>highest</b></string>
-    <string name="value_average">%1$s \n\n [b]average[/b]</string>
+    <string name="value_lowest">%1$s \n lowest</string>
+    <string name="value_highest">%1$s \n <b>highest</b></string>
+    <string name="value_average">%1$s \n average</string>
 
 </resources>
