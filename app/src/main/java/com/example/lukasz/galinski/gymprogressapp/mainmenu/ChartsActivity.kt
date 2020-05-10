@@ -30,15 +30,17 @@ private const val CHARTS_GRANULARITY = 1F
 private const val DATA_SET_LINE_WIDTH = 3F
 private const val DATA_SET_VALUE_TEXT_SIZE = 16F
 private const val CHARTS_ANIMATION_SHOW_TIME = 1800
-private const val BASIC_TIME_PERIOD = 7
+private const val TIME_PERIOD_WEEK = 6
+private const val TIME_PERIOD_MONTH = 29
 private const val MEASURES_REFERENCE = "measures"
+private const val ONE_DIGIT_AFTER_DOT_PATTERN = "%.1f"
 private const val DATE_ONLY_FORMAT = "dd-MM-yyyy"
 val partNames = listOf("weight", "height", "chest", "waist", "hip", "arm", "thigh", "calf")
 private val myDataSet = ArrayList<Float?>()
 private val entryList = ArrayList<Entry>()
 private val dateList = ArrayList<String>()
-private var timePeriod = BASIC_TIME_PERIOD
-private var partName: String = "weight"
+private var timePeriod = TIME_PERIOD_WEEK
+private var partName: String = ""
 class ChartsActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,6 +100,7 @@ class ChartsActivity: AppCompatActivity() {
         chart.animateX(CHARTS_ANIMATION_SHOW_TIME, Easing.EaseInExpo)
         chart.setBackgroundColor(ContextCompat.getColor(this, R.color.blackHalfTransparent))
         chart.setGridBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+        chart.setTouchEnabled(true)
         val lineData = LineData(dataSet)
         chart.data = lineData
         chart.invalidate()
@@ -126,14 +129,39 @@ class ChartsActivity: AppCompatActivity() {
 
     fun changeTimePeriodOnTheChart(v: View){
         when (v.id){
-            R.id.week_button -> timePeriod = 6
-            R.id.month_button -> timePeriod = 29
+            R.id.week_button -> timePeriod = TIME_PERIOD_WEEK
+            R.id.month_button -> timePeriod = TIME_PERIOD_MONTH
         }
         setChartData(partName)
     }
 
-    private fun findMinMaxAverageValues(myDataSet: ArrayList<Float?>){
-
+    private fun findMinMaxAverageValues(myDataSet: ArrayList<Float?>) {
+        val clearValuesOnly = ArrayList<Float>()
+        for (i in myDataSet.indices) {
+            if (myDataSet[i] != 0F) {
+                clearValuesOnly.add(myDataSet[i]!!)
+            }
+        }
+        if (clearValuesOnly.isNotEmpty()) {
+            var minim = clearValuesOnly[0]
+            var maximum = clearValuesOnly[0]
+            var avg = 0F
+            for (i in clearValuesOnly.indices) {
+                if (clearValuesOnly[i] < minim) {
+                    minim = clearValuesOnly[i]
+                }
+                if (clearValuesOnly[i] > maximum) {
+                    maximum = clearValuesOnly[i]
+                }
+                avg += clearValuesOnly[i]
+            }
+            lowest_value.text = resources.getString(R.string.value_lowest, minim.toString())
+            highest_value.text = resources.getString(R.string.value_highest, maximum.toString())
+            average_value.text = resources.getString(
+                R.string.value_average,
+                String.format(ONE_DIGIT_AFTER_DOT_PATTERN, avg / clearValuesOnly.size)
+            )
+        }
     }
 }
 
