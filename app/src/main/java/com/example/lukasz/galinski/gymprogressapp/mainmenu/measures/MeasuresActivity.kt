@@ -8,10 +8,12 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lukasz.galinski.gymprogressapp.R
 import com.example.lukasz.galinski.gymprogressapp.adapters.MeasuresAdapter
 import com.example.lukasz.galinski.gymprogressapp.dataclasses.MeasuresData
+import com.example.lukasz.galinski.gymprogressapp.mainmenu.getDefaultHumanImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -39,6 +41,7 @@ class MeasuresActivity : AppCompatActivity() {
         val currentDay = SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(Date())
         getEditTextsFieldsIntoArray(editTextsArray)
         loadAllMeasures()
+        loadDefaultHumanModel()
         loadMeasureFromTodayIntoEditTexts(currentDay)
 
         measures_save.setOnClickListener {
@@ -52,6 +55,12 @@ class MeasuresActivity : AppCompatActivity() {
         reset_filters.setOnClickListener {
             loadAllMeasures()
         }
+
+    }
+
+    private fun loadDefaultHumanModel(){
+        val humanBodyView = getDefaultHumanImage(this)
+        imageView4.setImageDrawable(ContextCompat.getDrawable(this, humanBodyView[0]))
     }
 
     private fun getEditTextsFieldsIntoArray(editTextsArray: ArrayList<EditText>){

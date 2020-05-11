@@ -7,10 +7,13 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.lukasz.galinski.gymprogressapp.R
 import com.example.lukasz.galinski.gymprogressapp.adapters.ExercisesAdapter
 import com.example.lukasz.galinski.gymprogressapp.dataclasses.ExerciseData
+import com.example.lukasz.galinski.gymprogressapp.mainmenu.getDefaultHumanImage
+import com.example.lukasz.galinski.gymprogressapp.mainmenu.setDefaultHumanImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import devs.mulham.horizontalcalendar.HorizontalCalendar
@@ -27,21 +30,22 @@ private const val CALENDAR_START_END_DAY = 1
 private const val EXERCISE_NAME_REF = "exerciseName"
 private const val FIREBASE_SERIES_REFERENCE = "reference_series"
 private const val DATE_PATTERN_REGEX = "dd-MM-yyyy"
+private const val HUMAN_MODEL_MAN = "man"
+private const val HUMAN_MODEL_WOMAN = "woman"
 private lateinit var simple: SimpleDateFormat
-private lateinit var exercisereference: DatabaseReference
 var elementsCounter: Int = 0
 
 class WorkoutExercise:AppCompatActivity() {
     private var isForward = true
     private var datePicked: String? = ""
     private var bodyPartButtons: ArrayList<Button> = arrayListOf()
+    private lateinit var humanBodyView: List<Int>
     val listRecords : MutableList<ExerciseData?> = ArrayList()
     private val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.exercises_layout)
-        exercisereference = firebaseDatabase.reference.child(FIREBASE_DATABASE_PATH)
         bodyPartButtons = arrayListOf(Barki, Klatka, Plecy, Triceps, Biceps, Grzbiet, Przedramiona, Brzuch, Pośladki, Uda, Łydki)
         simple = SimpleDateFormat(DATE_PATTERN_REGEX, Locale.getDefault(Locale.Category.FORMAT))
         for (i in bodyPartButtons) {
@@ -60,9 +64,16 @@ class WorkoutExercise:AppCompatActivity() {
             intent.putExtra(FIREBASE_SERIES_REFERENCE, sendNextArray)
             startActivity(intent)
         }
+        loadDefaultHumanModel()
         updateSpinner()
         createHorizontalCalendar()
         loadExercises()
+        model_default.setOnClickListener { selectModel() }
+    }
+
+    private fun loadDefaultHumanModel(){
+        humanBodyView = getDefaultHumanImage(this)
+        imageView.setImageDrawable(ContextCompat.getDrawable(this, humanBodyView[0]))
     }
 
     private fun getCurrentUser(): String{
@@ -79,7 +90,6 @@ class WorkoutExercise:AppCompatActivity() {
                 val exercise: ExerciseData? = i.getValue(
                     ExerciseData::class.java)
                 elementsCounter = exercise?.exerciseId?.toInt() ?: 0
-
                 if (exercise?.musclePartName == spinner.selectedItem.toString()) {
                     listRecords.add(exercise)
                 }
@@ -88,8 +98,7 @@ class WorkoutExercise:AppCompatActivity() {
             listview.adapter = arrayAdapter
             customAdapterButtonsSet(arrayAdapter)
         }
-        override fun onCancelled(p0: DatabaseError) {
-        }
+        override fun onCancelled(p0: DatabaseError) {}
     })
 }
 
@@ -100,7 +109,6 @@ class WorkoutExercise:AppCompatActivity() {
         )
         val startDate: Calendar = Calendar.getInstance()
         startDate.add(Calendar.MONTH, -CALENDAR_START_END_DAY)
-
         val horizontalCalendar = HorizontalCalendar
             .Builder(this,
                 R.id.calendarView
@@ -151,14 +159,36 @@ class WorkoutExercise:AppCompatActivity() {
     fun turnAroundModel(v: View) {
         changeVisibilityOfElements(bodyPartButtons)
         if (isForward) {
-            imageView.setImageResource(R.drawable.tyl)
+            imageView.setImageResource(humanBodyView[1])
             isForward = false
         } else {
             if (!isForward) {
-                imageView.setImageResource(R.drawable.man)
+                imageView.setImageResource(humanBodyView[0])
                 isForward = true
             }
         }
+    }
+
+    private fun selectModel(){
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.model_choose, null)
+        val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
+        val manCheckBox = mDialogView.findViewById<CheckBox>(R.id.man_checkbox)
+        val womanCheckBox = mDialogView.findViewById<CheckBox>(R.id.woman_checkbox)
+        val alert = mBuilder.show()
+        val listener = CompoundButton.OnCheckedChangeListener { compound: CompoundButton, _: Boolean ->
+            when (compound.id){
+                R.id.man_checkbox -> {
+                    setDefaultHumanImage(this, HUMAN_MODEL_MAN)
+                }
+                R.id.woman_checkbox -> {
+                    setDefaultHumanImage(this, HUMAN_MODEL_WOMAN)
+                }
+            }
+            loadDefaultHumanModel()
+            alert.dismiss()
+        }
+        manCheckBox.setOnCheckedChangeListener(listener)
+        womanCheckBox.setOnCheckedChangeListener(listener)
     }
 
     private fun updateSpinner(){
