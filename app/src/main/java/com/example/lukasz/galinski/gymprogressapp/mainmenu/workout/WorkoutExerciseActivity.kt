@@ -30,7 +30,7 @@ private const val CALENDAR_START_END_DAY = 1
 private const val EXERCISE_NAME_REF = "exerciseName"
 private const val FIREBASE_SERIES_REFERENCE = "reference_series"
 private const val DATE_PATTERN_REGEX = "dd-MM-yyyy"
-private const val HUMAN_MODEL_MAN = "man"
+private const val HUMAN_MODEL_MAN = "man_front"
 private const val HUMAN_MODEL_WOMAN = "woman"
 private lateinit var simple: SimpleDateFormat
 var elementsCounter: Int = 0

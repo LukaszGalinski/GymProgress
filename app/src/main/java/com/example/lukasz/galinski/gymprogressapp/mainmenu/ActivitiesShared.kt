@@ -1,19 +1,15 @@
 package com.example.lukasz.galinski.gymprogressapp.mainmenu
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.widget.CheckBox
-import android.widget.CompoundButton
-import androidx.appcompat.app.AlertDialog
 import com.example.lukasz.galinski.gymprogressapp.R
 
 private const val HUMAN_MODEL_OBJECT = "human_type"
-private const val HUMAN_MODEL_MAN = "man"
+private const val HUMAN_MODEL_MAN = "man_frnt"
 private const val HUMAN_MODEL_WOMAN = "woman"
-private const val DRAWABLE_MAN_FRONT = R.drawable.man
-private const val DRAWABLE_MAN_BACK = R.drawable.tyl
-private const val DRAWABLE_WOMAN_FRONT = R.drawable.figure_woman
-private const val DRAWABLE_WOMAN_BACK = R.drawable.woman_tyl
+private const val DRAWABLE_MAN_FRONT = R.drawable.man_front
+private const val DRAWABLE_MAN_BACK = R.drawable.man_back
+private const val DRAWABLE_WOMAN_FRONT = R.drawable.woman_front
+private const val DRAWABLE_WOMAN_BACK = R.drawable.woman_back
 
 
 fun setDefaultHumanImage(context: Context, humanBodyType: String){

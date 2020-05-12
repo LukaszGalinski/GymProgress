@@ -46,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="350dp"
         android:alpha="0.8"
-        android:src="@drawable/man"
+        android:src="@drawable/man_front"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/man_checkbox"
         app:layout_constraintWidth_percent="0.5" />
@@ -55,7 +55,7 @@
         android:id="@+id/imageView6"
         android:layout_width="0dp"
         android:layout_height="350dp"
-        android:src="@drawable/woman_przod"
+        android:src="@drawable/woman_front"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/woman_checkbox"
         app:layout_constraintWidth_percent="0.5" />
