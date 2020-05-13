@@ -29,40 +29,37 @@
         android:textColor="@color/whiteColor"
         android:theme="@style/EditTextTheme"
         android:hint="@string/exercise_name"
+        android:autofillHints="@string/exercise_name"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/partName"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/exercisename_editTxt">
+    <Button
+        android:id="@+id/dialogCancel_btn"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/button_margin_top_def"
+        android:layout_weight="0.5"
+        android:layout_marginEnd="@dimen/button_margin_top_def"
+        android:background="@drawable/rounded_btn"
+        android:text="@string/cancel_btn"
+        android:textColor="@color/whiteColor"
+        app:layout_constraintEnd_toStartOf="@+id/dialogOk_btn"
+        app:layout_constraintTop_toBottomOf="@id/exercisename_editTxt"
+        app:layout_constraintWidth_percent="0.2" />
 
-        <Button
-            android:id="@+id/dialogCancel_btn"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="0.5"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/rounded_btn"
-            android:text="@string/cancel_btn"
-            android:textColor="@color/whiteColor"
-            />
+    <Button
+        android:id="@+id/dialogOk_btn"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight=".5"
+        android:layout_marginTop="@dimen/button_margin_top_def"
+        android:background="@drawable/rounded_btn"
+        android:text="@string/add_btn"
+        android:textColor="@color/whiteColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exercisename_editTxt" />
 
-        <Button
-            android:id="@+id/dialogOk_btn"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/rounded_btn"
-            android:text="@string/add_btn"
-            android:layout_marginLeft="10dp"
-            android:layout_weight=".5"
-            android:textColor="@color/whiteColor"
-             />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

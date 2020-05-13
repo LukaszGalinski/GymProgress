@@ -11,7 +11,6 @@ private const val DRAWABLE_MAN_BACK = R.drawable.man_back
 private const val DRAWABLE_WOMAN_FRONT = R.drawable.woman_front
 private const val DRAWABLE_WOMAN_BACK = R.drawable.woman_back
 
-
 fun setDefaultHumanImage(context: Context, humanBodyType: String){
     val sharedPreferences  = context.getSharedPreferences(HUMAN_MODEL_OBJECT, Context.MODE_PRIVATE)
     val editor = sharedPreferences.edit()

@@ -22,24 +22,17 @@ private const val START_ALPHA = 0f
 private const val END_ALPHA = 1f
 private const val ALPHA_DURATION = 1500L
 private const val ANIMATION_ALPHA = "alpha"
-private lateinit var square: ImageView
 private val animationsArray: MutableList<ObjectAnimator> = ArrayList()
-private lateinit var elementsArray: Array<Any>
+private lateinit var animatedElementsArray: Array<Any>
 class LoginActivity : AppCompatActivity() {
-    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_login_layout)
-        firebaseAuth = FirebaseAuth.getInstance()
-        square = findViewById(
-            R.id.logo_imgView
-        )
-        elementsArray =
-            arrayOf(app_name, username_editTxt, password_editTxt, createAccount, login_btn)
+        animatedElementsArray = arrayOf(app_name, username_editTxt, password_editTxt, createAccount, login_btn)
         userLoggedCheck()
         rotate()
-        fadeIn(elementsArray)
+        fadeIn(animatedElementsArray)
         login_btn.setOnClickListener {
             /*
             val userName = username_editTxt.text.toString()
@@ -54,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
             finish()
             startActivity(Intent(this, MainMenu::class.java))
         }
+
         createAccount.setOnClickListener {
             finish()
             startActivity(Intent(this, CreateAccount::class.java))
@@ -81,45 +75,33 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun userLoggedCheck() {
-        val user = firebaseAuth.currentUser
+        val user = FirebaseAuth.getInstance().currentUser
         updateUI(user)
     }
 
     private fun rotate() {
-        square.animate().alpha(
-            END_ALPHA
-        ).rotation(ROTATION).scaleX(
-            SQUARE_SCALE
-        ).scaleY(
-            SQUARE_SCALE
-        ).duration =
-            ROTATION_DURATION
+        val square = findViewById<ImageView>(R.id.logo_imgView)
+        square.animate().alpha(END_ALPHA).rotation(ROTATION).scaleX(SQUARE_SCALE)
+            .scaleY(SQUARE_SCALE).duration = ROTATION_DURATION
     }
 
     @SuppressLint("ObjectAnimatorBinding")
     private fun fadeIn(elementsArray: Array<Any>) {
         for (i in elementsArray.indices) {
-            val anim =
-                ObjectAnimator.ofFloat(elementsArray[i],
-                    ANIMATION_ALPHA,
-                    START_ALPHA,
-                    END_ALPHA
-                )
-            anim.duration =
-                ALPHA_DURATION
-            anim.startDelay =
-                AlPHA_DELAY
+            val anim = ObjectAnimator.ofFloat(elementsArray[i], ANIMATION_ALPHA, START_ALPHA, END_ALPHA)
+            anim.duration = ALPHA_DURATION
+            anim.startDelay = AlPHA_DELAY
             anim.start()
             animationsArray.add(anim)
         }
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        endAnimations()
+        animationsFinish()
         return super.onTouchEvent(event)
     }
 
-    private fun endAnimations() {
+    private fun animationsFinish() {
         for (i in animationsArray.indices) {
             animationsArray[i].end()
         }

@@ -38,24 +38,27 @@
         android:id="@+id/dialogCancel_btn"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginTop="@dimen/button_margin_top_def"
+        android:layout_marginEnd="@dimen/button_margin_top_def"
         android:background="@drawable/rounded_btn"
         android:text="@string/cancel_btn"
         android:textColor="@color/whiteColor"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/dialogOk_btn"
         app:layout_constraintTop_toBottomOf="@id/exercise_name"
-        app:layout_constraintWidth_percent="0.5" />
+        app:layout_constraintWidth_percent="0.2" />
 
     <Button
         android:id="@+id/dialogOk_btn"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginTop="@dimen/button_margin_top_def"
         android:background="@drawable/rounded_btn"
         android:text="@string/alert_dialog_save"
         android:textColor="@color/whiteColor"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/dialogCancel_btn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/exercise_name"
-        app:layout_constraintWidth_percent="0.5" />
+        app:layout_constraintWidth_percent="0.2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

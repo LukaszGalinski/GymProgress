@@ -10,11 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.lukasz.galinski.gymprogressapp.R
+import com.example.lukasz.galinski.gymprogressapp.adapters.CustomSpinnerAdapter
 import com.example.lukasz.galinski.gymprogressapp.adapters.ExercisesAdapter
 import com.example.lukasz.galinski.gymprogressapp.dataclasses.ExerciseData
+import com.example.lukasz.galinski.gymprogressapp.loginfeatures.getCurrentUser
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.getDefaultHumanImage
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.setDefaultHumanImage
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener
@@ -34,7 +35,6 @@ private const val HUMAN_MODEL_MAN = "man_front"
 private const val HUMAN_MODEL_WOMAN = "woman"
 private lateinit var simple: SimpleDateFormat
 var elementsCounter: Int = 0
-
 class WorkoutExercise:AppCompatActivity() {
     private var isForward = true
     private var datePicked: String? = ""
@@ -48,37 +48,37 @@ class WorkoutExercise:AppCompatActivity() {
         setContentView(R.layout.exercises_layout)
         bodyPartButtons = arrayListOf(Barki, Klatka, Plecy, Triceps, Biceps, Grzbiet, Przedramiona, Brzuch, Pośladki, Uda, Łydki)
         simple = SimpleDateFormat(DATE_PATTERN_REGEX, Locale.getDefault(Locale.Category.FORMAT))
-        for (i in bodyPartButtons) {
-            i.setOnClickListener(openAlertDialogWithPickedPart)
-        }
-        val userName = getCurrentUser()
         datePicked = SimpleDateFormat(DATE_PATTERN_REGEX, Locale.getDefault()).format(Date())
+        setHumanModelTouchable()
+        onExerciseSelect()
+        loadDefaultHumanModel()
+        updateSpinner()
+        createHorizontalCalendar()
+        loadExercises()
+        model_default.setOnClickListener { defaultHumanModelSet() }
+    }
 
+    private fun setHumanModelTouchable(){
+        for (i in bodyPartButtons) {
+            i.setOnClickListener(createAddingExerciseAlert())
+        }
+    }
+
+    private fun onExerciseSelect(){
         listview.onItemClickListener = AdapterView.OnItemClickListener { _, view, _, _ ->
             val exerciseId = view?.series_number?.text.toString()
             val intent = Intent(applicationContext, SeriesExerciseActivity::class.java)
             val calendar = calendarView.horizontalCalendar.selectedDate
             val str: String = simple.format(calendar)
-            val refString = "$FIREBASE_DATABASE_PATH/$str/$userName/$exerciseId"
+            val refString = "$FIREBASE_DATABASE_PATH/$str/${getCurrentUser()}/$exerciseId"
             val sendNextArray = arrayListOf(refString, str)
             intent.putExtra(FIREBASE_SERIES_REFERENCE, sendNextArray)
             startActivity(intent)
         }
-        loadDefaultHumanModel()
-        updateSpinner()
-        createHorizontalCalendar()
-        loadExercises()
-        model_default.setOnClickListener { selectModel() }
     }
-
     private fun loadDefaultHumanModel(){
         humanBodyView = getDefaultHumanImage(this)
         imageView.setImageDrawable(ContextCompat.getDrawable(this, humanBodyView[0]))
-    }
-
-    private fun getCurrentUser(): String{
-        val firebaseAuth = FirebaseAuth.getInstance()
-        return firebaseAuth.currentUser.toString()
     }
 
     private fun loadExercises(){
@@ -125,25 +125,33 @@ class WorkoutExercise:AppCompatActivity() {
         })
     }
 
-    private val openAlertDialogWithPickedPart = View.OnClickListener { v: View? ->
-        val databaseReference = firebaseDatabase.getReference("$FIREBASE_DATABASE_PATH/$datePicked").child(getCurrentUser()).child(
-            elementsCounter.inc().toString())
-        val mDialogView = LayoutInflater.from(this).inflate(R.layout.exercises_add_dialog, null)
-        val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
-        val entryName = v?.resources?.getResourceEntryName(v.id)
-        mDialogView.findViewById<TextView>(R.id.partName).text = entryName
-        val alert = mBuilder.show()
+    private fun createAddingExerciseAlert(): View.OnClickListener {
+        return View.OnClickListener { v: View? ->
+            val databaseReference =
+                firebaseDatabase.getReference("$FIREBASE_DATABASE_PATH/$datePicked")
+                    .child(getCurrentUser()).child(
+                        elementsCounter.inc().toString()
+                    )
+            val mDialogView = LayoutInflater.from(this).inflate(R.layout.exercises_add_dialog, null)
+            val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
+            val entryName = v?.resources?.getResourceEntryName(v.id)
+            mDialogView.findViewById<TextView>(R.id.partName).text = entryName
+            val alert = mBuilder.show()
 
-        mDialogView.findViewById<Button>(R.id.dialogCancel_btn).setOnClickListener {
-            alert.dismiss()
+            mDialogView.findViewById<Button>(R.id.dialogCancel_btn).setOnClickListener {
+                alert.dismiss()
+            }
+            mDialogView.findViewById<Button>(R.id.dialogOk_btn).setOnClickListener {
+                val exercise = ExerciseData(
+                    entryName.toString(),
+                    mDialogView.findViewById<EditText>(R.id.exercisename_editTxt).text.toString(),
+                    elementsCounter.inc().toLong()
+                )
+                databaseReference.setValue(exercise)
+                alert.dismiss()
+            }
+            loadExercises()
         }
-        mDialogView.findViewById<Button>(R.id.dialogOk_btn).setOnClickListener {
-            val exercise = ExerciseData(entryName.toString(),
-                mDialogView.findViewById<EditText>(R.id.exercisename_editTxt).text.toString(), elementsCounter.inc().toLong())
-            databaseReference.setValue(exercise)
-            alert.dismiss()
-        }
-        loadExercises()
     }
 
     private fun changeVisibilityOfElements(tab: ArrayList<Button>) {
@@ -169,7 +177,7 @@ class WorkoutExercise:AppCompatActivity() {
         }
     }
 
-    private fun selectModel(){
+    private fun defaultHumanModelSet(){
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.model_choose, null)
         val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
         val manCheckBox = mDialogView.findViewById<CheckBox>(R.id.man_checkbox)
@@ -192,8 +200,8 @@ class WorkoutExercise:AppCompatActivity() {
     }
 
     private fun updateSpinner(){
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, groupNames)
-        spinner.adapter = arrayAdapter
+        val spinnerAdapter = CustomSpinnerAdapter(this, groupNames)
+        spinner.adapter = spinnerAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }

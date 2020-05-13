@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/df">
+    android:background="@drawable/background">
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/line_chart_ez"
@@ -21,7 +21,7 @@
         android:background="@color/blackHalfTransparent"
         android:textColor="@color/whiteColor"
         android:layout_margin="5dp"
-        android:text="month"
+        android:text="@string/month"
         android:onClick="changeTimePeriodOnTheChart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/line_chart_ez"
@@ -35,7 +35,7 @@
         android:textColor="@color/whiteColor"
         android:layout_margin="5dp"
         android:onClick="changeTimePeriodOnTheChart"
-        android:text="week"
+        android:text="@string/week"
         app:layout_constraintEnd_toStartOf="@id/month_button"
         app:layout_constraintTop_toBottomOf="@id/line_chart_ez"
         app:layout_constraintWidth_percent="0.2" />
@@ -46,7 +46,7 @@
         android:layout_height="30dp"
         android:layout_margin="5dp"
         android:background="@color/darkGray"
-        android:text="calendar"
+        android:text="@string/calendar"
         android:alpha="0.3"
         android:textColor="@color/whiteColor"
         app:layout_constraintEnd_toStartOf="@id/week_button"
@@ -56,13 +56,11 @@
     <Spinner
         android:id="@+id/partName_spinner"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
-        android:background="@color/blackHalfTransparent"
+        android:background="@color/colorPrimary"
         android:padding="5dp"
         android:gravity="center"
-        style="@style/spinner"
-        android:theme="@style/spinner"
         app:layout_constraintTop_toBottomOf="@id/month_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

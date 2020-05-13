@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lukasz.galinski.gymprogressapp.R
+import com.example.lukasz.galinski.gymprogressapp.mainmenu.charts.ChartsActivity
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.workout.WorkoutExercise
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.daily.DailyActivity
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.measures.MeasuresActivity

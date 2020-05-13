@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,9 +11,9 @@
 
     <ImageView
         android:id="@+id/logo_imgView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="@dimen/square_width"
+        android:layout_height="@dimen/square_width"
+        android:layout_marginTop="@dimen/square_margin"
         android:contentDescription="@string/description_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,12 +21,13 @@
 
     <EditText
         android:id="@+id/username_editTxt"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="@dimen/login_editText_width"
+        android:layout_height="@dimen/login_editText_height"
+        android:layout_marginTop="@dimen/login_editText_margin_top"
         android:inputType="text"
         android:hint="@string/user_name"
-        android:drawablePadding="5dp"
+        android:autofillHints="@string/user_name"
+        android:drawablePadding="@dimen/login_editText_drawable_padding"
         android:textColor="@color/whiteColor"
         android:textColorHint="@color/whiteColor"
         android:cursorVisible="true"
@@ -33,14 +35,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo_imgView"
         android:drawableStart="@drawable/ic_person_black_24dp"/>
+
     <EditText
         android:id="@+id/user_email"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/login_editText_width"
+        android:layout_height="@dimen/login_editText_height"
+        android:layout_marginTop="@dimen/login_editText_margin_default"
         android:inputType="textEmailAddress"
-        android:hint="email"
-        android:drawablePadding="5dp"
+        android:hint="@string/email"
+        android:autofillHints="@string/email"
+        android:drawablePadding="@dimen/login_editText_drawable_padding"
         android:textColor="@color/whiteColor"
         android:textColorHint="@color/whiteColor"
         android:cursorVisible="true"
@@ -49,14 +53,16 @@
         app:layout_constraintTop_toBottomOf="@id/username_editTxt"
         android:drawableStart="@drawable/ic_email_black_24dp"
         />
+
     <EditText
         android:id="@+id/password_editTxt"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/login_editText_width"
+        android:layout_height="@dimen/login_editText_height"
+        android:layout_marginTop="@dimen/login_editText_margin_default"
         android:inputType="textPassword"
         android:hint="@string/user_password"
-        android:drawablePadding="5dp"
+        android:autofillHints="@string/user_password"
+        android:drawablePadding="@dimen/login_editText_drawable_padding"
         android:textColor="@color/whiteColor"
         android:textColorHint="@color/whiteColor"
         android:cursorVisible="true"
@@ -65,14 +71,16 @@
         app:layout_constraintTop_toBottomOf="@id/user_email"
         android:drawableStart="@drawable/ic_lock_black_24dp"
         />
+
     <EditText
         android:id="@+id/reppassword_editTxt"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/login_editText_width"
+        android:layout_height="@dimen/login_editText_height"
+        android:layout_marginTop="@dimen/login_editText_margin_default"
         android:inputType="textPassword"
-        android:hint="Powtórz hasło"
-        android:drawablePadding="5dp"
+        android:hint="@string/user_password_repeat"
+        android:autofillHints="@string/user_password_repeat"
+        android:drawablePadding="@dimen/login_editText_drawable_padding"
         android:textColor="@color/whiteColor"
         android:textColorHint="@color/whiteColor"
         android:cursorVisible="true"
@@ -84,11 +92,11 @@
 
     <Button
         android:id="@+id/register_btn"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="@dimen/button_margin_top"
         android:background="@drawable/rounded_btn"
-        android:text="Zarejestruj"
+        android:text="@string/user_register"
         android:textColor="@color/whiteColor"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

@@ -47,7 +47,6 @@ class ExercisesAdapter(private val context: Context, private val array: List<Exe
         editBtn.setOnClickListener {
             listener.onEditButtonPress(index.text.toString().toInt())
         }
-
         return mainRow
     }
 }

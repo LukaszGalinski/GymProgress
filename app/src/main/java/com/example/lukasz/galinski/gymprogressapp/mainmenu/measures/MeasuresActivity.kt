@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lukasz.galinski.gymprogressapp.R
 import com.example.lukasz.galinski.gymprogressapp.adapters.MeasuresAdapter
 import com.example.lukasz.galinski.gymprogressapp.dataclasses.MeasuresData
+import com.example.lukasz.galinski.gymprogressapp.loginfeatures.getCurrentUser
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.getDefaultHumanImage
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -39,7 +39,7 @@ class MeasuresActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.measures_layout)
         val currentDay = SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(Date())
-        getEditTextsFieldsIntoArray(editTextsArray)
+        loadEditTextsFieldsIntoArray(editTextsArray)
         loadAllMeasures()
         loadDefaultHumanModel()
         loadMeasureFromTodayIntoEditTexts(currentDay)
@@ -55,7 +55,29 @@ class MeasuresActivity : AppCompatActivity() {
         reset_filters.setOnClickListener {
             loadAllMeasures()
         }
+    }
 
+    private fun loadAllMeasures(){
+        val reference = FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getCurrentUser()}/")
+        reference.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                measuresList.clear()
+                dateList.clear()
+                for (data in p0.children){
+                    val exercise: MeasuresData? = data.getValue(MeasuresData::class.java)
+                    val date = data.key.toString()
+                    measuresList.add(exercise)
+                    dateList.add(date)
+                }
+                recycler_view_measures.layoutManager = LinearLayoutManager(this@MeasuresActivity)
+                measuresAdapter = MeasuresAdapter(this@MeasuresActivity, measuresList, editTextHints, dateList)
+                recycler_view_measures.adapter = measuresAdapter
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                toast(resources.getString(R.string.data_load_error))
+            }
+        })
     }
 
     private fun loadDefaultHumanModel(){
@@ -63,7 +85,7 @@ class MeasuresActivity : AppCompatActivity() {
         imageView4.setImageDrawable(ContextCompat.getDrawable(this, humanBodyView[0]))
     }
 
-    private fun getEditTextsFieldsIntoArray(editTextsArray: ArrayList<EditText>){
+    private fun loadEditTextsFieldsIntoArray(editTextsArray: ArrayList<EditText>){
         editTextsArray.clear()
         val linearLayout = findViewById<LinearLayout>(R.id.linear_edit)
         for (i in 0 until linearLayout.childCount) {
@@ -94,6 +116,7 @@ class MeasuresActivity : AppCompatActivity() {
         FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getCurrentUser()}/$currentDay").setValue(dataSet)
         clearEditTextsFields(editTextsArray)
         toast(resources.getString(R.string.data_save_success))
+
     }
 
     private fun clearEditTextsFields(editTextsArray: ArrayList<EditText>){
@@ -106,60 +129,9 @@ class MeasuresActivity : AppCompatActivity() {
         val reference = FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getCurrentUser()}/$currentDay")
         reference.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                val loadedData: MeasuresData? = p0.getValue(
-                    MeasuresData::class.java)
+                val loadedData: MeasuresData? = p0.getValue(MeasuresData::class.java)
                 setEditTextsFields(editTextsArray, loadedData)
                 toast(resources.getString(R.string.data_load_success))
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                toast(resources.getString(R.string.data_load_error))
-            }
-        })
-    }
-
-    private fun <R> readInstanceProperty(instance: MeasuresData?, propertyName: String): R {
-        return if (instance != null){
-            val property = instance::class.members.first { it.name == propertyName } as KProperty1<Any, *>
-            property.get(instance) as R
-        } else{
-            0 as R
-        }
-    }
-
-    private fun toast(text: String){
-        android.widget.Toast.makeText(applicationContext, text, android.widget.Toast.LENGTH_SHORT).show()
-    }
-
-    private fun getCurrentUser(): String{
-        val firebaseAuth = FirebaseAuth.getInstance()
-        return firebaseAuth.currentUser.toString()
-    }
-
-    private fun loadAllMeasures(){
-        measuresList.clear()
-        dateList.clear()
-        val reference = FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getCurrentUser()}/")
-        reference.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(p0: DataSnapshot) {
-                for (data in p0.children){
-                    val exercise: MeasuresData? = data.getValue(
-                        MeasuresData::class.java)
-                    val date = data.key.toString()
-                    measuresList.add(exercise)
-                    dateList.add(date)
-                }
-
-                recycler_view_measures.layoutManager = LinearLayoutManager(this@MeasuresActivity)
-                measuresAdapter =
-                    MeasuresAdapter(
-                        this@MeasuresActivity,
-                        measuresList,
-                        editTextHints,
-                        dateList
-                    )
-                recycler_view_measures.adapter =
-                    measuresAdapter
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -213,5 +185,19 @@ class MeasuresActivity : AppCompatActivity() {
                 toast(resources.getString(R.string.data_load_error))
             }
         })
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun <R> readInstanceProperty(instance: MeasuresData?, propertyName: String): R {
+        return if (instance != null){
+            val property = instance::class.members.first { it.name == propertyName } as KProperty1<Any, *>
+            property.get(instance) as R
+        } else{
+            0 as R
+        }
+    }
+
+    private fun toast(text: String){
+        android.widget.Toast.makeText(applicationContext, text, android.widget.Toast.LENGTH_SHORT).show()
     }
 }

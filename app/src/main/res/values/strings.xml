@@ -4,8 +4,11 @@
     <string name="description_logo">Logo</string>
     <string name="user_name">Nazwa użytkownika</string>
     <string name="user_password">Hasło</string>
+    <string name="user_password_repeat">repeat password</string>
+    <string name="user_register">Register</string>
     <string name="user_forgotPassword">Nie pamiętasz hasła?</string>
     <string name="login_btn">Zaloguj</string>
+    <string name="email">email</string>
     <string name="welcome_user">Witaj %1$s</string>
     <string name="stats">Statystyki</string>
     <string name="user_profile">Profil</string>
@@ -73,5 +76,20 @@
     <string name="value_lowest">%1$s \n lowest</string>
     <string name="value_highest">%1$s \n <b>highest</b></string>
     <string name="value_average">%1$s \n average</string>
+    <string name="week">week</string>
+    <string name="calendar">calendar</string>
+    <string name="month">month</string>
+    <string name="water_cup">water cup</string>
+    <string name="water_add">water_add</string>
+    <string name="water_minus">water minus</string>
+    <string name="daily_tasks">Daily Tasks</string>
+    <string name="daily_vegetable">daily vegetable</string>
+    <string name="daily_fruit">daily fruit</string>
+    <string name="daily_workout">daily workout</string>
+    <string name="chose_your_model">Chose your model</string>
+    <string name="choose_man_model">Choose MAN model</string>
+    <string name="choose_woman_model">Choose WOMAN model</string>
+    <string name="change_model">change model</string>
+    <string name="human_model">human model</string>
 
 </resources>

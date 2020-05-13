@@ -1,4 +1,4 @@
-package com.example.lukasz.galinski.gymprogressapp.mainmenu
+package com.example.lukasz.galinski.gymprogressapp.mainmenu.charts
 
 import android.os.Bundle
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.lukasz.galinski.gymprogressapp.R
+import com.example.lukasz.galinski.gymprogressapp.loginfeatures.getCurrentUser
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
@@ -16,7 +17,6 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -39,29 +39,25 @@ val partNames = listOf("weight", "height", "chest", "waist", "hip", "arm", "thig
 private val myDataSet = ArrayList<Float?>()
 private val entryList = ArrayList<Entry>()
 private val dateList = ArrayList<String>()
-private var timePeriod = TIME_PERIOD_WEEK
+private var timePeriod =
+    TIME_PERIOD_WEEK
 private var partName: String = ""
 class ChartsActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.chart_layout)
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, partNames)
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item,
+            partNames
+        )
         partName_spinner.adapter = spinnerAdapter
-        partName_spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                partName = partName_spinner.getItemAtPosition(position).toString()
-                setChartData(partName)
-            }
-        }
+        setUpSpinner()
     }
 
     private fun setChartData(partName: String){
         val chart = findViewById<View>(R.id.line_chart_ez) as LineChart
         dateList.clear(); myDataSet.clear(); entryList.clear()
         var xAxisPosition = 0
-        val reference = FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getUserEmail()}/")
+        val reference = FirebaseDatabase.getInstance().reference.child("$MEASURES_REFERENCE/${getCurrentUser()}/")
         reference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 for (i in timePeriod downTo 0) {
@@ -78,7 +74,7 @@ class ChartsActivity: AppCompatActivity() {
 
             override fun onCancelled(p0: DatabaseError) {}
         })
-        }
+    }
 
     private fun setChartCustomStyle(chart: LineChart, partName: String){
         val xAxis: XAxis = chart.xAxis
@@ -87,11 +83,14 @@ class ChartsActivity: AppCompatActivity() {
         xAxis.valueFormatter = customXAxisLabels
 
         val dataSet = LineDataSet(entryList, partName)
-        xAxis.granularity = CHARTS_GRANULARITY
+        xAxis.granularity =
+            CHARTS_GRANULARITY
         dataSet.color = ContextCompat.getColor(this, R.color.colorAccent)
         dataSet.valueTextColor = ContextCompat.getColor(this, android.R.color.white)
-        dataSet.lineWidth = DATA_SET_LINE_WIDTH
-        dataSet.valueTextSize = DATA_SET_VALUE_TEXT_SIZE
+        dataSet.lineWidth =
+            DATA_SET_LINE_WIDTH
+        dataSet.valueTextSize =
+            DATA_SET_VALUE_TEXT_SIZE
         dataSet.setDrawFilled(true)
         dataSet.fillColor = ContextCompat.getColor(this, R.color.buttonColor)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
@@ -114,6 +113,17 @@ class ChartsActivity: AppCompatActivity() {
         }
     }
 
+    private fun setUpSpinner(){
+        partName_spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                partName = partName_spinner.getItemAtPosition(position).toString()
+                setChartData(partName)
+            }
+        }
+    }
+
     private fun getCalculatedDate(days: Int): String? {
         val cal = Calendar.getInstance()
         val s = SimpleDateFormat(DATE_ONLY_FORMAT, Locale.getDefault())
@@ -121,16 +131,12 @@ class ChartsActivity: AppCompatActivity() {
         return s.format(Date(cal.timeInMillis))
     }
 
-    private fun getUserEmail(): String {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val user = firebaseAuth.currentUser
-        return user.toString()
-    }
-
     fun changeTimePeriodOnTheChart(v: View){
         when (v.id){
-            R.id.week_button -> timePeriod = TIME_PERIOD_WEEK
-            R.id.month_button -> timePeriod = TIME_PERIOD_MONTH
+            R.id.week_button -> timePeriod =
+                TIME_PERIOD_WEEK
+            R.id.month_button -> timePeriod =
+                TIME_PERIOD_MONTH
         }
         setChartData(partName)
     }

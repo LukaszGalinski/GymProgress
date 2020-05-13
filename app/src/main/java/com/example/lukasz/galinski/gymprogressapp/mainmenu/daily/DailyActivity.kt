@@ -30,14 +30,11 @@ class DailyActivity:AppCompatActivity() {
         date = SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(Date())
         ref = db.reference.child(REFERENCE_PATCH_NAME).child("$date/$user")
         loadData(ref)
-
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val monthValue = String.format(DOUBLE_DIGIT_FORMAT, month+1)
             val day = String.format(DOUBLE_DIGIT_FORMAT, dayOfMonth)
             date = "$day-$monthValue-$year"
-            ref = db.reference.child(
-                REFERENCE_PATCH_NAME
-            ).child("$date/$user")
+            ref = db.reference.child(REFERENCE_PATCH_NAME).child("$date/$user")
             loadData(ref)
         }
 
