@@ -1,19 +1,12 @@
 # GymProgress
->>>> In Progress <<<<
-First android app in kotlin language. Gym progress application.
 
-03.01.2020
-- Initial commit
-- first layouts created with activities
-- basic configuration
-- added touchable human model
+Android app in kotlin language which was created to track user's progress in building his dream figure.
+Apllication is result of practicing issues such as: listViews, recyclerViews, adapters, Animations, calendarViews, firebase database, shared preferences.
 
-06.01.2020
-- fix on clickable 2d model
-- model swapping (front + back views)
-- expandableListView added and configurated
-- adapter for expandablelistView created
-- data model created
-- Firebase install and configuration
-- added importing data into List from database
-- added adding data to database
+Application has four main functions:
+- Adding exercises with details (series, weight, reps),
+- checking daily tasks such as: drunk water, eaten fruit, training done,
+- tracking progress using charts
+- adding measurements of your own body.
+
+Application can be downloaded from the main directory.

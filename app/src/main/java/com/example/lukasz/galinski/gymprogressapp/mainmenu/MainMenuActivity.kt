@@ -25,7 +25,7 @@ class MainMenu:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_menu_layout)
-        squaresArray = arrayOf(Exercises, Records, Statistics, Measures)
+        squaresArray = arrayOf(Exercises, DailyTasks, Statistics, Measures)
 
         confirm.setOnClickListener {
             startActivity(intense)
@@ -49,8 +49,8 @@ class MainMenu:AppCompatActivity() {
                     SQUARES_DURATION
                 intense = Intent(this, WorkoutExercise::class.java)
             }
-            R.id.Records -> {
-                Records.animate().translationX(SQUARES_TRANSLATION).rotation(-SQUARES_ROTATION)
+            R.id.DailyTasks -> {
+                DailyTasks.animate().translationX(SQUARES_TRANSLATION).rotation(-SQUARES_ROTATION)
                     .alpha(SQUARES_ALPHA).duration =
                     SQUARES_DURATION
                 intense = Intent(this, DailyActivity::class.java)

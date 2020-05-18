@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/Records"
+        android:id="@+id/DailyTasks"
         android:layout_width="@dimen/main_menu_square_size"
         android:layout_height="@dimen/main_menu_square_size"
         android:layout_marginStart="@dimen/main_menu_square_margin_small"

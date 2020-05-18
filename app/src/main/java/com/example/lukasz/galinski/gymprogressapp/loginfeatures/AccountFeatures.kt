@@ -9,13 +9,14 @@ import java.util.regex.Pattern
 private const val LOGIN_LENGTH = 7
 private const val PASSWORD_LENGTH = 7
 private const val DIGITAL_PATTERN = "\\d+"
+private const val userEmailTrimFormat = "[^\\w\\s]"
 private const val UPPERCASE_LETTER_PATTERN = "[A-Z]+"
 private val digitalMatcher = Pattern.compile(DIGITAL_PATTERN)
 private val uppercaseMatcher = Pattern.compile(UPPERCASE_LETTER_PATTERN)
 
 fun getCurrentUser(): String{
-    val firebaseAuth = FirebaseAuth.getInstance()
-    return firebaseAuth.currentUser.toString()
+    val firebaseAuth = FirebaseAuth.getInstance().currentUser?.email.toString()
+    return firebaseAuth.replace(userEmailTrimFormat.toRegex(), "")
 }
 
 fun loginCheck(context: Context, userLogin: String): Boolean {
@@ -40,7 +41,7 @@ fun emailCheck(context: Context, userEmail: String): Boolean {
 fun passwordCheck(context: Context, password: String): Boolean {
     val digitMatcher = digitalMatcher.matcher(password)
     val uppercaseMatcher = uppercaseMatcher.matcher(password)
-    return if (password.length > PASSWORD_LENGTH || digitMatcher.find() || uppercaseMatcher.find()) true
+    return if (password.length > PASSWORD_LENGTH && digitMatcher.find() && uppercaseMatcher.find()) true
     else {
         Toast.makeText(context, context.resources.getText(R.string.password_rules, PASSWORD_LENGTH.toString()), Toast.LENGTH_SHORT).show()
         false

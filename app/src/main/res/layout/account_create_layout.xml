@@ -13,6 +13,7 @@
         android:id="@+id/logo_imgView"
         android:layout_width="@dimen/square_width"
         android:layout_height="@dimen/square_width"
+        android:src="@drawable/squar"
         android:layout_marginTop="@dimen/square_margin"
         android:contentDescription="@string/description_logo"
         app:layout_constraintEnd_toEndOf="parent"

@@ -40,19 +40,6 @@
         app:layout_constraintTop_toBottomOf="@id/line_chart_ez"
         app:layout_constraintWidth_percent="0.2" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_margin="5dp"
-        android:background="@color/darkGray"
-        android:text="@string/calendar"
-        android:alpha="0.3"
-        android:textColor="@color/whiteColor"
-        app:layout_constraintEnd_toStartOf="@id/week_button"
-        app:layout_constraintTop_toBottomOf="@id/line_chart_ez"
-        app:layout_constraintWidth_percent="0.2" />
-
     <Spinner
         android:id="@+id/partName_spinner"
         android:layout_width="0dp"
@@ -72,12 +59,12 @@
         android:layout_height="60dp"
         android:text="@string/value_lowest"
         style="@style/TextViewMeasures"
-        android:alpha="0.6"
+        android:alpha="0.8"
         android:background="@color/buttonColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/highest_value"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@id/month_button"
         app:layout_constraintWidth_percent="0.3" />
 
     <TextView
@@ -86,12 +73,12 @@
         android:layout_height="60dp"
         style="@style/TextViewMeasures"
         android:text="@string/value_highest"
-        android:alpha="0.6"
+        android:alpha="0.8"
         android:background="@color/buttonColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@id/month_button"
         app:layout_constraintWidth_percent="0.3" />
 
     <TextView
@@ -99,13 +86,13 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         style="@style/TextViewMeasures"
-        android:alpha="0.6"
+        android:alpha="0.8"
         android:background="@color/buttonColor"
         android:text="@string/value_average"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/highest_value"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@id/month_button"
         app:layout_constraintWidth_percent="0.3" />
     
 </androidx.constraintlayout.widget.ConstraintLayout>

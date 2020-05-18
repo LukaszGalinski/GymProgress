@@ -148,10 +148,13 @@ class ChartsActivity: AppCompatActivity() {
                 clearValuesOnly.add(myDataSet[i]!!)
             }
         }
+        var minim = 0F
+        var maximum = 0F
+        var avg = 0F
         if (clearValuesOnly.isNotEmpty()) {
-            var minim = clearValuesOnly[0]
-            var maximum = clearValuesOnly[0]
-            var avg = 0F
+            minim = clearValuesOnly[0]
+            maximum = clearValuesOnly[0]
+
             for (i in clearValuesOnly.indices) {
                 if (clearValuesOnly[i] < minim) {
                     minim = clearValuesOnly[i]
@@ -161,13 +164,14 @@ class ChartsActivity: AppCompatActivity() {
                 }
                 avg += clearValuesOnly[i]
             }
-            lowest_value.text = resources.getString(R.string.value_lowest, minim.toString())
-            highest_value.text = resources.getString(R.string.value_highest, maximum.toString())
-            average_value.text = resources.getString(
-                R.string.value_average,
-                String.format(ONE_DIGIT_AFTER_DOT_PATTERN, avg / clearValuesOnly.size)
-            )
         }
+        lowest_value.text = resources.getString(R.string.value_lowest, minim.toString())
+        highest_value.text = resources.getString(R.string.value_highest, maximum.toString())
+        average_value.text = resources.getString(R.string.value_average, String.format(ONE_DIGIT_AFTER_DOT_PATTERN, isNan(avg/clearValuesOnly.size)))
+    }
+
+    private fun isNan(value: Float): Float {
+        return if (!value.isNaN()){ value } else{ 0F }
     }
 }
 

@@ -9,6 +9,7 @@ import com.example.lukasz.galinski.gymprogressapp.dataclasses.DailyTasksData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.example.lukasz.galinski.gymprogressapp.R
+import com.example.lukasz.galinski.gymprogressapp.loginfeatures.getCurrentUser
 import kotlinx.android.synthetic.main.daily_tasks_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,7 +27,7 @@ class DailyActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.daily_tasks_layout)
         val db: FirebaseDatabase = FirebaseDatabase.getInstance()
-        user = getUserEmail()
+        user = getCurrentUser()
         date = SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(Date())
         ref = db.reference.child(REFERENCE_PATCH_NAME).child("$date/$user")
         loadData(ref)
@@ -60,12 +61,6 @@ class DailyActivity:AppCompatActivity() {
 
             override fun onCancelled(p0: DatabaseError) {}
         })
-    }
-
-    private fun getUserEmail(): String {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val user = firebaseAuth.currentUser
-        return user.toString()
     }
 
     fun waterChange(v: View) {

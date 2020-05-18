@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.lukasz.galinski.gymprogressapp.R
 
 private const val HUMAN_MODEL_OBJECT = "human_type"
-private const val HUMAN_MODEL_MAN = "man_frnt"
+private const val HUMAN_MODEL_MAN = "man_front"
 private const val HUMAN_MODEL_WOMAN = "woman"
 private const val DRAWABLE_MAN_FRONT = R.drawable.man_front
 private const val DRAWABLE_MAN_BACK = R.drawable.man_back

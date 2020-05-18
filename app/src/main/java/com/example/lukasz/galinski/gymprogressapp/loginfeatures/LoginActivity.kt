@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lukasz.galinski.gymprogressapp.R
 import com.example.lukasz.galinski.gymprogressapp.mainmenu.MainMenu
@@ -30,11 +31,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_login_layout)
         animatedElementsArray = arrayOf(app_name, username_editTxt, password_editTxt, createAccount, login_btn)
+        val firebaseAuth = FirebaseAuth.getInstance()
         userLoggedCheck()
         rotate()
         fadeIn(animatedElementsArray)
         login_btn.setOnClickListener {
-            /*
             val userName = username_editTxt.text.toString()
             val userPassword = password_editTxt.text.toString()
             if (userName.isNotBlank() && userPassword.isNotBlank()){
@@ -43,9 +44,6 @@ class LoginActivity : AppCompatActivity() {
             else{
                 Toast.makeText(baseContext, resources.getText(R.string.fill_gaps), Toast.LENGTH_SHORT).show()
             }
-            */
-            finish()
-            startActivity(Intent(this, MainMenu::class.java))
         }
 
         createAccount.setOnClickListener {
@@ -68,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
+            finish()
             val intent = Intent(applicationContext, MainMenu::class.java)
             intent.putExtra(USERNAME_LABEL, user.email.toString())
             startActivity(intent)
