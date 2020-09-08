@@ -99,6 +99,9 @@ class MeasuresActivity : AppCompatActivity() {
             val prop = editTextHints[i]
             val name: Float = readInstanceProperty(dataElement, prop)
             editTextsArray[i].setText(name.toString())
+            editTextsArray[i].setOnClickListener{
+                editTextsArray[i].text.clear()
+            }
         }
     }
 

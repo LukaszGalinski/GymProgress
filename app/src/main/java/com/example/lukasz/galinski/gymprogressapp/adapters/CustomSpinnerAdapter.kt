@@ -8,7 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.lukasz.galinski.gymprogressapp.R
 
-class CustomSpinnerAdapter(var context: Context, var items: List<String>): BaseAdapter() {
+class CustomSpinnerAdapter(context: Context, var items: List<String>) : BaseAdapter() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {

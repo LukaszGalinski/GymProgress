@@ -39,8 +39,7 @@ val partNames = listOf("weight", "height", "chest", "waist", "hip", "arm", "thig
 private val myDataSet = ArrayList<Float?>()
 private val entryList = ArrayList<Entry>()
 private val dateList = ArrayList<String>()
-private var timePeriod =
-    TIME_PERIOD_WEEK
+private var timePeriod = TIME_PERIOD_WEEK
 private var partName: String = ""
 class ChartsActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
